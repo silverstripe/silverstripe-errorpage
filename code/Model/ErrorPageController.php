@@ -1,5 +1,5 @@
 <?php
-namespace SilverStripe\CMS\Model;
+namespace SilverStripe\ErrorPage;
 
 use SilverStripe\ORM\DataModel;
 use SilverStripe\Control\HTTPRequest;

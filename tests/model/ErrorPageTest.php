@@ -1,7 +1,9 @@
 <?php
 
+namespace SilverStripe\ErrorPage\Tests;
+
 use SilverStripe\Versioned\Versioned;
-use SilverStripe\CMS\Model\ErrorPage;
+use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\CMS\Controllers\ContentController;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\FunctionalTest;

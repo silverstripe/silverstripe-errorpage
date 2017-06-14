@@ -4,7 +4,7 @@ namespace SilverStripe\CMS\Controllers;
 
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\CMS\Model\ErrorPage;
+use SilverStripe\ErrorPage\ErrorPage;
 
 /**
  * Decorates {@see File} with ErrorPage support

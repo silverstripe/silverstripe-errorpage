@@ -2,7 +2,7 @@
 
 namespace SilverStripe\CMS\Controllers;
 
-use SilverStripe\CMS\Model\ErrorPage;
+use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse_Exception;

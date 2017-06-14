@@ -1,5 +1,7 @@
 <?php
 
+namespace SilverStripe\ErrorPage\Tests;
+
 use SilverStripe\Security\Security;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\Assets\File;
@@ -36,11 +38,11 @@ class ErrorPageFileExtensionTest extends SapphireTest
     public function testErrorPage()
     {
         // Get and publish records
-        $notFoundPage = $this->objFromFixture('SilverStripe\\CMS\\Model\\ErrorPage', '404');
+        $notFoundPage = $this->objFromFixture('SilverStripe\\ErrorPage\\ErrorPage', '404');
         $notFoundPage->copyVersionToStage(Versioned::DRAFT, Versioned::LIVE);
         $notFoundLink = $notFoundPage->Link();
 
-        $disallowedPage = $this->objFromFixture('SilverStripe\\CMS\\Model\\ErrorPage', '403');
+        $disallowedPage = $this->objFromFixture('SilverStripe\\ErrorPage\\ErrorPage', '403');
         $disallowedPage->copyVersionToStage(Versioned::DRAFT, Versioned::LIVE);
         $disallowedLink = $disallowedPage->Link();
 

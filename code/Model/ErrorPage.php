@@ -1,6 +1,6 @@
 <?php
 
-namespace SilverStripe\CMS\Model;
+namespace SilverStripe\ErrorPage;
 
 use SilverStripe\Assets\Storage\GeneratedAssetHandler;
 use SilverStripe\Forms\FieldList;
@@ -16,6 +16,7 @@ use SilverStripe\Assets\File;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Injector\Injector;
+use SilverStripe\CMS\Model\SiteTree;
 use Page;
 
 /**
@@ -191,18 +192,18 @@ class ErrorPage extends Page
         $data = array(
             array(
                 'ErrorCode' => 404,
-                'Title' => _t('SilverStripe\\CMS\\Model\\ErrorPage.DEFAULTERRORPAGETITLE', 'Page not found'),
+                'Title' => _t('SilverStripe\\ErrorPage\\ErrorPage.DEFAULTERRORPAGETITLE', 'Page not found'),
                 'Content' => _t(
-                    'SilverStripe\\CMS\\Model\\ErrorPage.DEFAULTERRORPAGECONTENT',
+                    'SilverStripe\\ErrorPage\\ErrorPage.DEFAULTERRORPAGECONTENT',
                     '<p>Sorry, it seems you were trying to access a page that doesn\'t exist.</p>'
                     . '<p>Please check the spelling of the URL you were trying to access and try again.</p>'
                 )
             ),
             array(
                 'ErrorCode' => 500,
-                'Title' => _t('SilverStripe\\CMS\\Model\\ErrorPage.DEFAULTSERVERERRORPAGETITLE', 'Server error'),
+                'Title' => _t('SilverStripe\\ErrorPage\\ErrorPage.DEFAULTSERVERERRORPAGETITLE', 'Server error'),
                 'Content' => _t(
-                    'SilverStripe\\CMS\\Model\\ErrorPage.DEFAULTSERVERERRORPAGECONTENT',
+                    'SilverStripe\\ErrorPage\\ErrorPage.DEFAULTSERVERERRORPAGECONTENT',
                     '<p>Sorry, there was a problem with handling your request.</p>'
                 )
             )
@@ -303,7 +304,7 @@ class ErrorPage extends Page
     public function fieldLabels($includerelations = true)
     {
         $labels = parent::fieldLabels($includerelations);
-        $labels['ErrorCode'] = _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE', "Error code");
+        $labels['ErrorCode'] = _t('SilverStripe\\ErrorPage\\ErrorPage.CODE', "Error code");
 
         return $labels;
     }
@@ -332,34 +333,34 @@ class ErrorPage extends Page
     protected function getCodes()
     {
         return [
-            400 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_400', '400 - Bad Request'),
-            401 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_401', '401 - Unauthorized'),
-            403 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_403', '403 - Forbidden'),
-            404 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_404', '404 - Not Found'),
-            405 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_405', '405 - Method Not Allowed'),
-            406 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_406', '406 - Not Acceptable'),
-            407 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_407', '407 - Proxy Authentication Required'),
-            408 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_408', '408 - Request Timeout'),
-            409 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_409', '409 - Conflict'),
-            410 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_410', '410 - Gone'),
-            411 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_411', '411 - Length Required'),
-            412 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_412', '412 - Precondition Failed'),
-            413 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_413', '413 - Request Entity Too Large'),
-            414 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_414', '414 - Request-URI Too Long'),
-            415 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_415', '415 - Unsupported Media Type'),
-            416 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_416', '416 - Request Range Not Satisfiable'),
-            417 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_417', '417 - Expectation Failed'),
-            422 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_422', '422 - Unprocessable Entity'),
-            429 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_429', '429 - Too Many Requests'),
-            500 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_500', '500 - Internal Server Error'),
-            501 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_501', '501 - Not Implemented'),
-            502 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_502', '502 - Bad Gateway'),
-            503 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_503', '503 - Service Unavailable'),
-            504 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_504', '504 - Gateway Timeout'),
-            505 => _t('SilverStripe\\CMS\\Model\\ErrorPage.CODE_505', '505 - HTTP Version Not Supported'),
+            400 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_400', '400 - Bad Request'),
+            401 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_401', '401 - Unauthorized'),
+            403 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_403', '403 - Forbidden'),
+            404 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_404', '404 - Not Found'),
+            405 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_405', '405 - Method Not Allowed'),
+            406 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_406', '406 - Not Acceptable'),
+            407 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_407', '407 - Proxy Authentication Required'),
+            408 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_408', '408 - Request Timeout'),
+            409 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_409', '409 - Conflict'),
+            410 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_410', '410 - Gone'),
+            411 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_411', '411 - Length Required'),
+            412 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_412', '412 - Precondition Failed'),
+            413 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_413', '413 - Request Entity Too Large'),
+            414 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_414', '414 - Request-URI Too Long'),
+            415 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_415', '415 - Unsupported Media Type'),
+            416 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_416', '416 - Request Range Not Satisfiable'),
+            417 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_417', '417 - Expectation Failed'),
+            422 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_422', '422 - Unprocessable Entity'),
+            429 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_429', '429 - Too Many Requests'),
+            500 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_500', '500 - Internal Server Error'),
+            501 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_501', '501 - Not Implemented'),
+            502 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_502', '502 - Bad Gateway'),
+            503 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_503', '503 - Service Unavailable'),
+            504 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_504', '504 - Gateway Timeout'),
+            505 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_505', '505 - HTTP Version Not Supported'),
         ];
     }
-    
+
     /**
      * Gets the filename identifier for the given error code.
      * Used when handling responses under error conditions.

@@ -2,7 +2,7 @@
 
 namespace SilverStripe\CMS\Logging;
 
-use SilverStripe\CMS\Model\ErrorPage;
+use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\Control\Director;
 use SilverStripe\Logging\DebugViewFriendlyErrorFormatter;
 
