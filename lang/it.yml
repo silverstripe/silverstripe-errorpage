@@ -1,0 +1,10 @@
+it:
+  SilverStripe\ErrorPage\ErrorPage:
+    CODE: 'Codice di errore'
+    DEFAULTERRORPAGECONTENT: '<p>Spiacente, sembra che tu cercassi di accedere ad una pagina che non esiste.</p><p>Controlla che l''URL a cui stavi cercando di accedere sia corretto e prova di nuovo.</p>'
+    DEFAULTERRORPAGETITLE: 'Pagina non trovata'
+    DEFAULTSERVERERRORPAGECONTENT: '<p>Spiacenti, c''è stato un problema con la gestione della tua richiesta.</p>'
+    DEFAULTSERVERERRORPAGETITLE: 'Errore server'
+    DESCRIPTION: 'Contenuto personalizzato per i diversi casi d''errore (per esempio "Pagina non trovata")'
+    PLURALNAME: 'Pagine di errore'
+    SINGULARNAME: 'Pagina di errore'

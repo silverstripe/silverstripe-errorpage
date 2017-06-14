@@ -1,0 +1,10 @@
+de:
+  SilverStripe\ErrorPage\ErrorPage:
+    CODE: 'Fehlercode'
+    DEFAULTERRORPAGECONTENT: '<p>Entschuldigung, möglicherweise versuchen Sie eine Seite zu erreichen die nicht existiert.</p><p>Bitte überprüfen Sie die Schreibweise der URL die Sie versucht haben zu erreichen und versuchen Sie es noch einmal.</p>'
+    DEFAULTERRORPAGETITLE: 'Seite nicht gefunden'
+    DEFAULTSERVERERRORPAGECONTENT: '<p>Entschuldigung, bei der Bearbeitung ihrer Anfrage ist ein Problem aufgetreten.</p>'
+    DEFAULTSERVERERRORPAGETITLE: 'Serverfehler'
+    DESCRIPTION: 'Spezieller Inhalt für andere Fehlerfälle (z.B. "Seite nicht gefunden")'
+    PLURALNAME: 'Fehlerseiten'
+    SINGULARNAME: 'Fehlerseite'

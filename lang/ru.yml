@@ -1,0 +1,10 @@
+ru:
+  SilverStripe\ErrorPage\ErrorPage:
+    CODE: 'Код ошибки'
+    DEFAULTERRORPAGECONTENT: '<p>Извините, страница, к которой вы пытаетесь получить доступ, не существует.</p><p>Пожалуйста, проверьте правильность написания ссылки и попытайтесь снова.</p>'
+    DEFAULTERRORPAGETITLE: 'Страница не найдена'
+    DEFAULTSERVERERRORPAGECONTENT: '<p>Не удалось обработать запрос.</p>'
+    DEFAULTSERVERERRORPAGETITLE: 'Ошибка сервера'
+    DESCRIPTION: 'Пользовательские страницы ошибок (например, "Страница не найдена")'
+    PLURALNAME: 'Страницы ошибок'
+    SINGULARNAME: 'Страница ошибки'
