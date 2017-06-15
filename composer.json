@@ -23,13 +23,16 @@
     "silverstripe/cms": "^4@dev"
   },
   "require-dev": {
-    "phpunit/PHPUnit": "~4.8"
+    "phpunit/PHPUnit": "~5.7"
   },
   "extra": {
     "branch-alias": {
       "dev-master": "1.0.x-dev"
     },
     "installer-name": "silverstripe-errorpage"
+  },
+  "scripts": {
+    "lint": "phpcs -s code/ tests/"
   },
   "autoload": {
     "psr-4": {
