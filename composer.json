@@ -32,7 +32,7 @@
     "installer-name": "silverstripe-errorpage"
   },
   "scripts": {
-    "lint": "phpcs -s code/ tests/"
+    "lint": "phpcs -s src/ tests/"
   },
   "autoload": {
     "psr-4": {
