@@ -1,6 +1,6 @@
 <?php
 
-namespace SilverStripe\CMS\Controllers;
+namespace SilverStripe\ErrorPage;
 
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataObject;

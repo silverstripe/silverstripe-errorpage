@@ -5,4 +5,4 @@ After:
 ---
 SilverStripe\Core\Injector\Injector:
   Monolog\Formatter\FormatterInterface.friendly:
-    class: SilverStripe\CMS\Logging\ErrorPageErrorFormatter
+    class: SilverStripe\ErrorPage\ErrorPageErrorFormatter

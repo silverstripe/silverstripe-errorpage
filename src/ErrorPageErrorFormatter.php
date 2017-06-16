@@ -1,6 +1,6 @@
 <?php
 
-namespace SilverStripe\CMS\Logging;
+namespace SilverStripe\ErrorPage;
 
 use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\Control\Director;
