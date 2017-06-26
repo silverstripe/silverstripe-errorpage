@@ -2,17 +2,15 @@
 
 namespace SilverStripe\ErrorPage\Tests;
 
+use SilverStripe\Assets\File;
+use SilverStripe\Assets\Tests\Storage\AssetStoreTest\TestAssetStore;
+use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Security\Security;
 use SilverStripe\Versioned\Versioned;
-use SilverStripe\Assets\File;
-use SilverStripe\Control\Session;
 use SilverStripe\View\Parsers\ShortcodeParser;
-use SilverStripe\Dev\SapphireTest;
-use SilverStripe\Assets\Tests\Storage\AssetStoreTest\TestAssetStore;
 
 class ErrorPageFileExtensionTest extends SapphireTest
 {
-
     protected static $fixture_file = 'ErrorPageTest.yml';
 
     protected $versionedMode = null;
