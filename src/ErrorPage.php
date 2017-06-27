@@ -6,6 +6,7 @@ use Page;
 use SilverStripe\Assets\File;
 use SilverStripe\Assets\Storage\GeneratedAssetHandler;
 use SilverStripe\CMS\Controllers\ModelAsController;
+use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
