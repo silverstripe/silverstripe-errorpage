@@ -10,7 +10,7 @@ addons:
 env:
   global:
     - TRAVIS_NODE_VERSION="6"
-    - COMPOSER_ROOT_VERSION="4.0.x-dev"
+    - COMPOSER_ROOT_VERSION="1.0.x-dev"
 
 matrix:
   include:
