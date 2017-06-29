@@ -7,6 +7,6 @@ SilverStripe\Control\Controller:
 SilverStripe\Forms\Form:
   extensions:
     - SilverStripe\ErrorPage\ErrorPageControllerExtension
-SilverStripe\Assets\File:
+SilverStripe\Assets\Shortcodes\FileShortcodeProvider:
   extensions:
     - SilverStripe\ErrorPage\ErrorPageFileExtension
