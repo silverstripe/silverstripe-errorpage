@@ -1,6 +1,6 @@
 nb:
   SilverStripe\ErrorPage\ErrorPage:
-    CODE: 'Feilkode'
+    CODE: Feilkode
     CODE_400: '400 - Ugyldig sidespørring'
     CODE_401: '401 - Uautorisert'
     CODE_403: '403 - Forbudt'
@@ -29,4 +29,4 @@ nb:
     DEFAULTERRORPAGECONTENT: '<p>Beklager, det ser ut til at du prøver å nå en side som ikke finnes.</p><p>Sjekk at du har skrevet riktig adresse og prøv på nytt.</p>'
     DEFAULTERRORPAGETITLE: 'Siden ble ikke funnet'
     DEFAULTSERVERERRORPAGECONTENT: '<p>Beklager, det oppstod et problem under utføringen.</p>'
-    DEFAULTSERVERERRORPAGETITLE: 'Serverfeil'
+    DEFAULTSERVERERRORPAGETITLE: Serverfeil

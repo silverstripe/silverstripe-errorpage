@@ -1,13 +1,14 @@
 fi:
   SilverStripe\ErrorPage\ErrorPage:
-    CODE: 'Virhekoodi'
-    DEFAULTERRORPAGECONTENT: '<p>Valitettavasti hakemaasi sivua ei ole olemassa.</p><p>Tarkista hakemasi sivun URL-osoitteen kirjoitusasu ja yritä uudelleen.</p>'
+    CODE: Virhekoodi
+    CODE_404: '404 - Sivua ei löytynyt'
+    CODE_408: '408 - Pyyntö aikakatkaistiin'
+    CODE_500: '500 - Sisäinen palvelinvirhe'
+    CODE_503: '503 - Palvelu ei saatavissa'
+    DEFAULTERRORPAGECONTENT: '<p>Pahoittelut, ilmeisesti yritit sivulle, jota ei ole.</p><p>Ole hyvä ja tarkista kirjoitusasu URL-osoitteesta ja yritä uudelleen.</p>'
     DEFAULTERRORPAGETITLE: 'Sivua ei löytynyt'
-    DEFAULTSERVERERRORPAGECONTENT: '<p>Pahoittelut, mutta pyyntösi aiheutti virheen.</p>'
-    DEFAULTSERVERERRORPAGETITLE: 'Palvelinvirhe'
-    DESCRIPTION: 'Omat virheilmoitukset (sivuille, kuten "Sivua ei löytynyt")'
-    PLURALNAME: 'Virhesivut'
-    PLURALS:
-      one: 'Virhesivu'
-      other: '{count} Virhesivua'
-    SINGULARNAME: 'Virhesivu'
+    DEFAULTSERVERERRORPAGECONTENT: '<p>Pahoittelut, pyyntösi aiheutti virheen.</p>'
+    DEFAULTSERVERERRORPAGETITLE: Palvelinvirhe
+    DESCRIPTION: 'Oma sisältö eri virhetilanteita varten (esim. "Sivua ei löytynyt")'
+    PLURALNAME: Virhesivut
+    SINGULARNAME: Virhesivu
