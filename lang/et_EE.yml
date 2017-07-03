@@ -1,6 +1,6 @@
 et_EE:
   SilverStripe\ErrorPage\ErrorPage:
-    CODE: 'Veakood'
+    CODE: Veakood
     CODE_400: '400 - Halb päring'
     CODE_401: '401 - Volitamata ligipääs'
     CODE_403: '403 - Keelatud'

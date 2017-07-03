@@ -1,6 +1,6 @@
 ja:
   SilverStripe\ErrorPage\ErrorPage:
-    CODE: 'エラーコード'
+    CODE: エラーコード
     CODE_400: '400 - 不適格な要求です'
     CODE_401: '401 - 許可されていません'
     CODE_403: '403 - 禁止されています'
@@ -27,6 +27,6 @@ ja:
     CODE_504: '504 - Gatewayが時間切れです'
     CODE_505: '505 - サポートされていないHTTPのバージョンです'
     DEFAULTERRORPAGECONTENT: '<p>申し訳ありませんが、貴方の見ようとしているページは存在しません。</p><p>貴方が見ようとしているサイトのURLの綴りがあっているのか、再度確認してください。</p>'
-    DEFAULTERRORPAGETITLE: 'ページが見つかりません'
+    DEFAULTERRORPAGETITLE: ページが見つかりません
     DEFAULTSERVERERRORPAGECONTENT: '<p>申し訳ございません。あなたのリクエストを処理中に問題が起きました。</p>'
-    DEFAULTSERVERERRORPAGETITLE: 'サーバーエラー'
+    DEFAULTSERVERERRORPAGETITLE: サーバーエラー

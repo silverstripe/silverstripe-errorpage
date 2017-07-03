@@ -1,6 +1,6 @@
 hu:
   SilverStripe\ErrorPage\ErrorPage:
-    CODE: 'Hibakód'
+    CODE: Hibakód
     CODE_400: '400 - Hibás kérés'
     CODE_401: '401 - Jogosulatlan kérés'
     CODE_403: '403 - Tiltott hozzáférés'
