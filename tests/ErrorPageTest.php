@@ -155,10 +155,10 @@ class ErrorPageTest extends FunctionalTest
     {
         $notFound = $this->objFromFixture(ErrorPage::class, '404');
 
-        SiteTree::config()->nested_urls = false;
+        Config::modify()->set(SiteTree::class, 'nested_urls', false);
         $this->assertEquals($notFound->ID, SiteTree::get_by_link($notFound->Link(), false)->ID);
 
-        Config::inst()->update(SiteTree::class, 'nested_urls', true);
+        Config::modify()->set(SiteTree::class, 'nested_urls', true);
         $this->assertEquals($notFound->ID, SiteTree::get_by_link($notFound->Link(), false)->ID);
     }
 
