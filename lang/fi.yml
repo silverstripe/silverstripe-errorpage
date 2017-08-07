@@ -11,4 +11,7 @@ fi:
     DEFAULTSERVERERRORPAGETITLE: Palvelinvirhe
     DESCRIPTION: 'Oma sisältö eri virhetilanteita varten (esim. "Sivua ei löytynyt")'
     PLURALNAME: Virhesivut
+    PLURALS:
+      one: Virhesivu
+      other: '{count} Virhesivua'
     SINGULARNAME: Virhesivu
