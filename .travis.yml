@@ -1,6 +1,6 @@
 language: php
 
-sudo: false
+dist: trusty
 
 addons:
   apt:
@@ -23,21 +23,19 @@ matrix:
 
 before_script:
 # Init PHP
-  - if [[ $PHPCS_TEST ]]; then pyrus install pear/PHP_CodeSniffer; fi
   - phpenv rehash
   - phpenv config-rm xdebug.ini
   - echo 'memory_limit = 2G' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 # Install composer dependencies
+  - export PATH=~/.composer/vendor/bin:$PATH
   - composer install --prefer-dist
   - composer require --prefer-dist --no-update symfony/config:^3.2 silverstripe/framework:4.0.x-dev silverstripe/cms:4.0.x-dev silverstripe/siteconfig:4.0.x-dev silverstripe/config:1.0.x-dev silverstripe/admin:1.0.x-dev silverstripe/assets:1.0.x-dev silverstripe/versioned:1.0.x-dev
   - composer update
 
   - if [[ $DB == PGSQL ]]; then composer require silverstripe/postgresql:2.0.x-dev --prefer-dist; fi
   - if [[ $DB == SQLITE ]]; then composer require silverstripe/sqlite3:2.0.x-dev --prefer-dist; fi
-
-# Bootstrap cms / mysite folder
-  - php cms/tests/bootstrap/mysite.php
+  - if [[ $PHPCS_TEST ]]; then composer global require squizlabs/php_codesniffer:^3 --prefer-dist --no-interaction --no-progress --no-suggest -o; fi
 
 script:
  - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit tests flush=1; fi
