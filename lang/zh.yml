@@ -1,6 +1,6 @@
 zh:
   SilverStripe\ErrorPage\ErrorPage:
-    CODE: '错误代码'
+    CODE: 错误代码
     CODE_400: '400 - 错误请求'
     CODE_401: '401 - 未授权'
     CODE_403: '403 - 禁止'
