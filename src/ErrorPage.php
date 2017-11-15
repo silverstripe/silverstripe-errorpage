@@ -17,6 +17,7 @@ use SilverStripe\Dev\Debug;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DB;
+use SilverStripe\Security\Member;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\SSViewer;
@@ -279,11 +280,20 @@ class ErrorPage extends Page
         }
 
         // Run the page (reset the theme, it might've been disabled by LeftAndMain::init())
-        Config::nest();
-        SSViewer::config()->set('theme_enabled', true);
-        $response = Director::test(Director::makeRelative($this->Link()));
-        Config::unnest();
-        $errorContent = $response->getBody();
+        $originalThemes = SSViewer::get_themes();
+        try {
+            // Restore front-end themes from config
+            $themes = SSViewer::config()->get('themes') ?: $originalThemes;
+            SSViewer::set_themes($themes);
+            // Render page as non-member
+            $response = Member::actAs(null, function () {
+                return Director::test(Director::makeRelative($this->Link()));
+            });
+            $errorContent = $response->getBody();
+        } finally {
+            // Restore themes
+            SSViewer::set_themes($originalThemes);
+        }
 
         // Store file content in the default store
         $storeFilename = File::join_paths(

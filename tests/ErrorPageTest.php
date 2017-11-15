@@ -11,6 +11,7 @@ use SilverStripe\Assets\Tests\Storage\AssetStoreTest\TestAssetStore;
 use SilverStripe\Control\HTTPResponse_Exception;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Director;
+use SilverStripe\View\SSViewer;
 
 /**
  * @package cms
@@ -123,6 +124,15 @@ class ErrorPageTest extends FunctionalTest
         $this->assertNotEmpty(ErrorPage::get_content_for_errorcode('401'));
         $expectedErrorPagePath = TestAssetStore::base_path() . '/error-401.html';
         $this->assertFileExists($expectedErrorPagePath, 'Error page is cached');
+    }
+
+    public function testThemedCaching()
+    {
+        // Empty theme should not break static caching
+        SSViewer::set_themes([
+            SSViewer::DEFAULT_THEME,
+        ]);
+        $this->testStaticCaching();
     }
 
     /**

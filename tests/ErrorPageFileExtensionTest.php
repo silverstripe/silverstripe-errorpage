@@ -5,8 +5,10 @@ namespace SilverStripe\ErrorPage\Tests;
 use SilverStripe\Assets\File;
 use SilverStripe\Assets\Shortcodes\FileShortcodeProvider;
 use SilverStripe\Assets\Tests\Storage\AssetStoreTest\TestAssetStore;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\ErrorPage\ErrorPage;
+use SilverStripe\Security\InheritedPermissions;
 use SilverStripe\Security\Security;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\View\Parsers\ShortcodeParser;
@@ -23,8 +25,12 @@ class ErrorPageFileExtensionTest extends SapphireTest
         $this->versionedMode = Versioned::get_reading_mode();
         Versioned::set_stage(Versioned::DRAFT);
         TestAssetStore::activate('ErrorPageFileExtensionTest');
+        
+        // Required so that shortcodes check permissions
+        Config::modify()->set(FileShortcodeProvider::class, 'shortcodes_inherit_canview', false);
         $file = new File();
         $file->setFromString('dummy', 'dummy.txt');
+        $file->CanViewType = InheritedPermissions::LOGGED_IN_USERS;
         $file->write();
     }
 
@@ -50,7 +56,7 @@ class ErrorPageFileExtensionTest extends SapphireTest
 
         // Get stage version of file
         /** @var File $file */
-        $file = File::get()->first();
+        $file = File::get()->filter('Name', 'dummy.txt')->first();
         $fileLink = $file->Link();
         Security::setCurrentUser(null);
 
@@ -60,7 +66,7 @@ class ErrorPageFileExtensionTest extends SapphireTest
         $shortcode = FileShortcodeProvider::handle_shortcode(array('id' => 9999), 'click here', new ShortcodeParser(), 'file_link');
         $this->assertEquals(sprintf('<a href="%s">%s</a>', $notFoundLink, 'click here'), $shortcode);
 
-        // Test that user cannot view draft file
+        // Test that user cannot view secured file
         $shortcode = FileShortcodeProvider::handle_shortcode(array('id' => $file->ID), null, new ShortcodeParser(), 'file_link');
         $this->assertEquals($disallowedLink, $shortcode);
         $shortcode = FileShortcodeProvider::handle_shortcode(array('id' => $file->ID), 'click here', new ShortcodeParser(), 'file_link');
