@@ -10,7 +10,7 @@ SilverStripe\ErrorPage\ErrorPage:
     Content: You do not have permission to view this page
     ErrorCode: 403
 
-Page:
+SilverStripe\CMS\Model\SiteTree:
   home:
     Title: Home
   about:
