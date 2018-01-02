@@ -174,7 +174,7 @@ class ErrorPageTest extends FunctionalTest
 
     public function testIsCurrent()
     {
-        $aboutPage = $this->objFromFixture('Page', 'about');
+        $aboutPage = $this->objFromFixture(SiteTree::class, 'about');
         $errorPage = $this->objFromFixture(ErrorPage::class, '404');
 
         Director::set_current_page($aboutPage);
