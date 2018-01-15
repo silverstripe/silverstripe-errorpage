@@ -4,7 +4,6 @@ namespace SilverStripe\ErrorPage;
 
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\ErrorPage\ErrorPage;
 
 /**
  * Decorates {@see File} with ErrorPage support

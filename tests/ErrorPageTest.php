@@ -11,6 +11,7 @@ use SilverStripe\Assets\Tests\Storage\AssetStoreTest\TestAssetStore;
 use SilverStripe\Control\HTTPResponse_Exception;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Director;
+use SilverStripe\View\SSViewer;
 
 /**
  * @package cms
@@ -125,6 +126,15 @@ class ErrorPageTest extends FunctionalTest
         $this->assertFileExists($expectedErrorPagePath, 'Error page is cached');
     }
 
+    public function testThemedCaching()
+    {
+        // Empty theme should not break static caching
+        SSViewer::set_themes([
+            SSViewer::DEFAULT_THEME,
+        ]);
+        $this->testStaticCaching();
+    }
+
     /**
      * Test fallback to file generation API with enable_static_file disabled
      */
@@ -164,7 +174,7 @@ class ErrorPageTest extends FunctionalTest
 
     public function testIsCurrent()
     {
-        $aboutPage = $this->objFromFixture('Page', 'about');
+        $aboutPage = $this->objFromFixture(SiteTree::class, 'about');
         $errorPage = $this->objFromFixture(ErrorPage::class, '404');
 
         Director::set_current_page($aboutPage);
