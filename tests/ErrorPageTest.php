@@ -7,7 +7,7 @@ use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\CMS\Controllers\ContentController;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\FunctionalTest;
-use SilverStripe\Assets\Tests\Storage\AssetStoreTest\TestAssetStore;
+use SilverStripe\Assets\Dev\TestAssetStore;
 use SilverStripe\Control\HTTPResponse_Exception;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Director;
