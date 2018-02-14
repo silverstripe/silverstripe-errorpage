@@ -4,7 +4,7 @@ namespace SilverStripe\ErrorPage\Tests;
 
 use SilverStripe\Assets\File;
 use SilverStripe\Assets\Shortcodes\FileShortcodeProvider;
-use SilverStripe\Assets\Tests\Storage\AssetStoreTest\TestAssetStore;
+use SilverStripe\Assets\Dev\TestAssetStore;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\ErrorPage\ErrorPage;
@@ -25,7 +25,7 @@ class ErrorPageFileExtensionTest extends SapphireTest
         $this->versionedMode = Versioned::get_reading_mode();
         Versioned::set_stage(Versioned::DRAFT);
         TestAssetStore::activate('ErrorPageFileExtensionTest');
-        
+
         // Required so that shortcodes check permissions
         Config::modify()->set(FileShortcodeProvider::class, 'shortcodes_inherit_canview', false);
         $file = new File();
