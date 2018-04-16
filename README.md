@@ -79,6 +79,8 @@ ErrorPage:
 ## Documentation
 
 To Do
+### Theming
+To apply a custom template for the error page you will need to create a ErrorPage.ss file in either `templates/SilverStripe/ErrorPage/ErrorPage.ss` or `templates/SilverStripe/ErrorPage/Layout/ErrorPage.ss`
 
 ## Reporting Issues
 
