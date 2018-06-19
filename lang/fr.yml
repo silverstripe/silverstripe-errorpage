@@ -32,4 +32,7 @@ fr:
     DEFAULTSERVERERRORPAGETITLE: 'Erreur du serveur'
     DESCRIPTION: "Contenu personnalisé pour diverses erreurs (ex: «\_Page introuvable\_»)"
     PLURALNAME: 'Pages d’erreur'
+    PLURALS:
+      one: 'Une page d''erreur'
+      other: '{count} pages d''erreur'
     SINGULARNAME: 'Page d’erreur'
