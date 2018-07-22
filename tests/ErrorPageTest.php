@@ -183,4 +183,20 @@ class ErrorPageTest extends FunctionalTest
         Director::set_current_page($errorPage);
         $this->assertTrue($errorPage->isCurrent(), 'Assert isCurrent works on error pages.');
     }
+
+    public function testWriteStaticPageWithDisableStaticFile()
+    {
+        ErrorPage::config()->set('enable_static_file', false);
+        /**
+         * @var ErrorPage
+         */
+        $errorPage = $this->objFromFixture(ErrorPage::class, '404');
+
+        $this->assertFalse(
+            $errorPage->writeStaticPage(),
+            'writeStaticPage should return false when enable_static_file is true'
+        );
+        $expectedErrorPagePath = TestAssetStore::base_path() . '/error-404.html';
+        $this->assertFileNotExists($expectedErrorPagePath, 'Error page should not be cached.');
+    }
 }
