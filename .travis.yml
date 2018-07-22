@@ -30,7 +30,7 @@ before_script:
 # Install composer dependencies
   - export PATH=~/.composer/vendor/bin:$PATH
   - composer require --no-update --prefer-dist silverstripe/recipe-cms:4.2.x-dev
-  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.0.x-dev --prefer-dist; fi
+  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.1.x-dev --prefer-dist; fi
   - if [[ $DB == SQLITE ]]; then composer require --no-update silverstripe/sqlite3:2.0.x-dev --prefer-dist; fi
   - if [[ $PHPCS_TEST ]]; then composer global require squizlabs/php_codesniffer:^3 --prefer-dist --no-interaction --no-progress --no-suggest -o; fi
   - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
