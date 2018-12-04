@@ -42,7 +42,8 @@ class ErrorPage extends Page
 
     private static $defaults = array(
         "ShowInMenus" => 0,
-        "ShowInSearch" => 0
+        "ShowInSearch" => 0,
+        "ErrorCode" => 400
     );
 
     private static $table_name = 'ErrorPage';
