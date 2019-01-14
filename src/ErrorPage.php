@@ -52,6 +52,8 @@ class ErrorPage extends Page
 
     private static $description = 'Custom content for different error cases (e.g. "Page not found")';
 
+    private static $icon_class = 'font-icon-p-error';
+
     /**
      * Allows control over writing directly to the configured `GeneratedAssetStore`.
      *
