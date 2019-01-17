@@ -42,7 +42,8 @@ class ErrorPage extends Page
 
     private static $defaults = array(
         "ShowInMenus" => 0,
-        "ShowInSearch" => 0
+        "ShowInSearch" => 0,
+        "ErrorCode" => 400
     );
 
     private static $table_name = 'ErrorPage';
@@ -50,6 +51,8 @@ class ErrorPage extends Page
     private static $allowed_children = array();
 
     private static $description = 'Custom content for different error cases (e.g. "Page not found")';
+
+    private static $icon_class = 'font-icon-p-error';
 
     /**
      * Allows control over writing directly to the configured `GeneratedAssetStore`.
