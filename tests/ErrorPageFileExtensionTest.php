@@ -61,20 +61,45 @@ class ErrorPageFileExtensionTest extends SapphireTest
         Security::setCurrentUser(null);
 
         // Generate shortcode for a file which doesn't exist
-        $shortcode = FileShortcodeProvider::handle_shortcode(array('id' => 9999), null, new ShortcodeParser(), 'file_link');
+        $shortcode = FileShortcodeProvider::handle_shortcode(
+            ['id' => 9999],
+            null,
+            new ShortcodeParser(),
+            'file_link'
+        );
         $this->assertEquals($notFoundLink, $shortcode);
-        $shortcode = FileShortcodeProvider::handle_shortcode(array('id' => 9999), 'click here', new ShortcodeParser(), 'file_link');
+        $shortcode = FileShortcodeProvider::handle_shortcode(
+            ['id' => 9999],
+            'click here',
+            new ShortcodeParser(),
+            'file_link'
+        );
         $this->assertEquals(sprintf('<a href="%s">%s</a>', $notFoundLink, 'click here'), $shortcode);
 
         // Test that user cannot view secured file
-        $shortcode = FileShortcodeProvider::handle_shortcode(array('id' => $file->ID), null, new ShortcodeParser(), 'file_link');
+        $shortcode = FileShortcodeProvider::handle_shortcode(
+            ['id' => $file->ID],
+            null,
+            new ShortcodeParser(),
+            'file_link'
+        );
         $this->assertEquals($disallowedLink, $shortcode);
-        $shortcode = FileShortcodeProvider::handle_shortcode(array('id' => $file->ID), 'click here', new ShortcodeParser(), 'file_link');
+        $shortcode = FileShortcodeProvider::handle_shortcode(
+            ['id' => $file->ID],
+            'click here',
+            new ShortcodeParser(),
+            'file_link'
+        );
         $this->assertEquals(sprintf('<a href="%s">%s</a>', $disallowedLink, 'click here'), $shortcode);
 
         // Authenticated users don't get the same error
         $this->logInWithPermission('ADMIN');
-        $shortcode = FileShortcodeProvider::handle_shortcode(array('id' => $file->ID), null, new ShortcodeParser(), 'file_link');
+        $shortcode = FileShortcodeProvider::handle_shortcode(
+            ['id' => $file->ID],
+            null,
+            new ShortcodeParser(),
+            'file_link'
+        );
         $this->assertEquals($fileLink, $shortcode);
     }
 }

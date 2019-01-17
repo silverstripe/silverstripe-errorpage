@@ -56,10 +56,18 @@ class ErrorPageTest extends FunctionalTest
         $this->assertNotNull($response->getBody(), 'We have body text from the error page');
 
         /* Status code of the HTTPResponse for error page is "404" */
-        $this->assertEquals($response->getStatusCode(), '404', 'Status code of the HTTPResponse for error page is "404"');
+        $this->assertEquals(
+            $response->getStatusCode(),
+            '404',
+            'Status code of the HTTPResponse for error page is "404"'
+        );
 
         /* Status message of the HTTPResponse for error page is "Not Found" */
-        $this->assertEquals($response->getStatusDescription(), 'Not Found', 'Status message of the HTTResponse for error page is "Not found"');
+        $this->assertEquals(
+            $response->getStatusDescription(),
+            'Not Found',
+            'Status message of the HTTResponse for error page is "Not found"'
+        );
     }
 
     public function testBehaviourOfShowInMenuAndShowInSearchFlags()
