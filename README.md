@@ -1,13 +1,9 @@
 # SilverStripe ErrorPage Module
 
 [![Build Status](https://api.travis-ci.org/silverstripe/silverstripe-errorpage.svg?branch=master)](https://travis-ci.org/silverstripe/silverstripe-errorpage)
-[![SilverStripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
-[![Latest Stable Version](https://poser.pugx.org/silverstripe/errorpage/version.svg)](http://www.silverstripe.org/stable-download/)
-[![Latest Unstable Version](https://poser.pugx.org/silverstripe/errorpage/v/unstable.svg)](https://packagist.org/packages/silverstripe/errorpage)
-[![Total Downloads](https://poser.pugx.org/silverstripe/errorpage/downloads.svg)](https://packagist.org/packages/silverstripe/errorpage)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/silverstripe-errorpage/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-errorpage/?branch=master)
+[![codecov](https://codecov.io/gh/silverstripe/silverstripe-errorpage/branch/master/graph/badge.svg)](https://codecov.io/gh/silverstripe/silverstripe-errorpage)
 [![License](https://poser.pugx.org/silverstripe/errorpage/license.svg)](https://github.com/silverstripe/silverstripe-errorpage#license)
-[![Dependency Status](https://www.versioneye.com/php/silverstripe:errorpage/badge.svg)](https://www.versioneye.com/php/silverstripe:errorpage)
-[![Reference Status](https://www.versioneye.com/php/silverstripe:errorpage/reference_badge.svg?style=flat)](https://www.versioneye.com/php/silverstripe:errorpage/references)
 [![SilverStripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
 
 ## Overview
