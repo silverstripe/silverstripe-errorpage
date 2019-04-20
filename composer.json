@@ -27,11 +27,7 @@
         "phpunit/phpunit": "~5.7",
         "squizlabs/php_codesniffer": "^3.0"
     },
-    "extra": {
-        "branch-alias": {
-            "1.x-dev": "1.4.x-dev"
-        }
-    },
+    "extra": [],
     "scripts": {
         "lint": "vendor/bin/phpcs -s src/ tests/"
     },
