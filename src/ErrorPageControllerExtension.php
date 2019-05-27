@@ -21,12 +21,12 @@ class ErrorPageControllerExtension extends Extension
      * @param HTTPRequest $request
      * @throws HTTPResponse_Exception
      */
-    public function onBeforeHTTPError($statusCode, $request)
+    public function onBeforeHTTPError($statusCode, $request, $errorMessage = null)
     {
         if (Director::is_ajax()) {
             return;
         }
-        $response = ErrorPage::response_for($statusCode);
+        $response = ErrorPage::response_for($statusCode, $errorMessage);
         if ($response) {
             throw new HTTPResponse_Exception($response, $statusCode);
         }

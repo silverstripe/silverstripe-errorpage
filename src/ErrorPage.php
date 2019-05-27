@@ -21,6 +21,8 @@ use SilverStripe\Security\Member;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\SSViewer;
+use SilverStripe\Core\Convert;
+use SilverStripe\ORM\FieldType\DBFIeld;
 
 /**
  * ErrorPage holds the content for the page of an error response.
@@ -87,9 +89,10 @@ class ErrorPage extends Page
      * file generated when the user hit's save and publish in the CMS
      *
      * @param int $statusCode
+     * @param string|null $errorMessage A developer message to put in the response on dev envs
      * @return HTTPResponse
      */
-    public static function response_for($statusCode)
+    public static function response_for($statusCode, $errorMessage = null)
     {
         // first attempt to dynamically generate the error page
         /** @var ErrorPage $errorPage */
@@ -101,6 +104,17 @@ class ErrorPage extends Page
         if ($errorPage) {
             Requirements::clear();
             Requirements::clear_combined_files();
+
+            if ($errorMessage) {
+                // Dev environments will have the error message added regardless of template changes
+                if (Director::isDev()) {
+                    $errorPage->Content .= "\n<p><b>Error detail: "
+                        . Convert::raw2xml($errorMessage) ."</b></p>";
+                }
+
+                // On test/live environments, developers can opt to put $ResponseErrorMessage in their template
+                $errorPage->ResponseErrorMessage = DBField::create_field('Varchar', $errorMessage);
+            }
 
             $request = new HTTPRequest('GET', '');
             $request->setSession(Controller::curr()->getRequest()->getSession());
