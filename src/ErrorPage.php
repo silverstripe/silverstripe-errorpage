@@ -355,6 +355,7 @@ class ErrorPage extends Page
         return [
             400 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_400', '400 - Bad Request'),
             401 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_401', '401 - Unauthorized'),
+            402 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_402', '402 - Payment Required'),
             403 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_403', '403 - Forbidden'),
             404 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_404', '404 - Not Found'),
             405 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_405', '405 - Method Not Allowed'),
@@ -372,6 +373,7 @@ class ErrorPage extends Page
             417 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_417', '417 - Expectation Failed'),
             422 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_422', '422 - Unprocessable Entity'),
             429 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_429', '429 - Too Many Requests'),
+            451 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_451', '451 - Unavailable For Legal Reasons'),
             500 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_500', '500 - Internal Server Error'),
             501 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_501', '501 - Not Implemented'),
             502 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_502', '502 - Bad Gateway'),
