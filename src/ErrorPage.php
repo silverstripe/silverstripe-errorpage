@@ -57,6 +57,13 @@ class ErrorPage extends Page
     private static $icon_class = 'font-icon-p-error';
 
     /**
+     * Allow developers to opt out of dev messaging using Config
+     *
+     * @var boolean
+     */
+    private static $dev_append_error_message = true;
+
+    /**
      * Allows control over writing directly to the configured `GeneratedAssetStore`.
      *
      * @config
@@ -105,9 +112,12 @@ class ErrorPage extends Page
             Requirements::clear();
             Requirements::clear_combined_files();
 
+            //set @var dev_append_error_message to false to opt out of dev message
+            $showDevMessage = (self::config()->dev_append_error_message === true);
+
             if ($errorMessage) {
                 // Dev environments will have the error message added regardless of template changes
-                if (Director::isDev()) {
+                if (Director::isDev() && $showDevMessage === true) {
                     $errorPage->Content .= "\n<p><b>Error detail: "
                         . Convert::raw2xml($errorMessage) ."</b></p>";
                 }
