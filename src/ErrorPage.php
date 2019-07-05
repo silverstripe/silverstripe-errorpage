@@ -21,6 +21,8 @@ use SilverStripe\Security\Member;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\SSViewer;
+use SilverStripe\Core\Convert;
+use SilverStripe\ORM\FieldType\DBFIeld;
 
 /**
  * ErrorPage holds the content for the page of an error response.
@@ -55,6 +57,13 @@ class ErrorPage extends Page
     private static $icon_class = 'font-icon-p-error';
 
     /**
+     * Allow developers to opt out of dev messaging using Config
+     *
+     * @var boolean
+     */
+    private static $dev_append_error_message = true;
+
+    /**
      * Allows control over writing directly to the configured `GeneratedAssetStore`.
      *
      * @config
@@ -87,9 +96,10 @@ class ErrorPage extends Page
      * file generated when the user hit's save and publish in the CMS
      *
      * @param int $statusCode
+     * @param string|null $errorMessage A developer message to put in the response on dev envs
      * @return HTTPResponse
      */
-    public static function response_for($statusCode)
+    public static function response_for($statusCode, $errorMessage = null)
     {
         // first attempt to dynamically generate the error page
         /** @var ErrorPage $errorPage */
@@ -101,6 +111,20 @@ class ErrorPage extends Page
         if ($errorPage) {
             Requirements::clear();
             Requirements::clear_combined_files();
+
+            //set @var dev_append_error_message to false to opt out of dev message
+            $showDevMessage = (self::config()->dev_append_error_message === true);
+
+            if ($errorMessage) {
+                // Dev environments will have the error message added regardless of template changes
+                if (Director::isDev() && $showDevMessage === true) {
+                    $errorPage->Content .= "\n<p><b>Error detail: "
+                        . Convert::raw2xml($errorMessage) ."</b></p>";
+                }
+
+                // On test/live environments, developers can opt to put $ResponseErrorMessage in their template
+                $errorPage->ResponseErrorMessage = DBField::create_field('Varchar', $errorMessage);
+            }
 
             $request = new HTTPRequest('GET', '');
             $request->setSession(Controller::curr()->getRequest()->getSession());

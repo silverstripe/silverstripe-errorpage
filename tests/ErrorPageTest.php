@@ -2,6 +2,10 @@
 
 namespace SilverStripe\ErrorPage\Tests;
 
+use SilverStripe\Control\Controller;
+use SilverStripe\Control\HTTPResponse;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Core\Kernel;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\CMS\Controllers\ContentController;
@@ -206,5 +210,42 @@ class ErrorPageTest extends FunctionalTest
         );
         $expectedErrorPagePath = TestAssetStore::base_path() . '/error-404.html';
         $this->assertFileNotExists($expectedErrorPagePath, 'Error page should not be cached.');
+    }
+
+    /**
+     * @param string $env
+     * @param bool $shouldShowInDev
+     * @dataProvider provideErrorMessageEnv
+     */
+    public function testErrorMessageAppended($env, $shouldShowInDev)
+    {
+        /* @var Kernel $kernel */
+        $kernel = Injector::inst()->get(Kernel::class);
+        $originalEnv = $kernel->getEnvironment();
+        $kernel->setEnvironment($env);
+        ErrorPage::config()->set('dev_append_error_message', $shouldShowInDev);
+        /* @var HTTPResponse $response */
+        $response = ErrorPage::response_for(404, 'Really bad error');
+        $this->assertNotEmpty($response->getBody());
+        if ($env === 'dev' && $shouldShowInDev) {
+            $this->assertContains('Really bad error', $response->getBody());
+        } else {
+            $this->assertNotContains('Really bad error', $response->getBody());
+        }
+
+        $kernel->setEnvironment($originalEnv);
+    }
+
+    /**
+     * @return array
+     */
+    public function provideErrorMessageEnv()
+    {
+        return [
+            ['dev', true],
+            ['dev', false],
+            ['live', true],
+            ['live', false]
+        ];
     }
 }
