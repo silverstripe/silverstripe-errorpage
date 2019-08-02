@@ -1,4 +1,4 @@
-fi:
+fi_FI:
   SilverStripe\ErrorPage\ErrorPage:
     CODE: Virhekoodi
     CODE_401: '401 - Ei oikeuksia'

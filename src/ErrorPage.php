@@ -21,6 +21,8 @@ use SilverStripe\Security\Member;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\SSViewer;
+use SilverStripe\Core\Convert;
+use SilverStripe\ORM\FieldType\DBFIeld;
 
 /**
  * ErrorPage holds the content for the page of an error response.
@@ -55,6 +57,13 @@ class ErrorPage extends Page
     private static $icon_class = 'font-icon-p-error';
 
     /**
+     * Allow developers to opt out of dev messaging using Config
+     *
+     * @var boolean
+     */
+    private static $dev_append_error_message = true;
+
+    /**
      * Allows control over writing directly to the configured `GeneratedAssetStore`.
      *
      * @config
@@ -87,9 +96,10 @@ class ErrorPage extends Page
      * file generated when the user hit's save and publish in the CMS
      *
      * @param int $statusCode
+     * @param string|null $errorMessage A developer message to put in the response on dev envs
      * @return HTTPResponse
      */
-    public static function response_for($statusCode)
+    public static function response_for($statusCode, $errorMessage = null)
     {
         // first attempt to dynamically generate the error page
         /** @var ErrorPage $errorPage */
@@ -101,6 +111,20 @@ class ErrorPage extends Page
         if ($errorPage) {
             Requirements::clear();
             Requirements::clear_combined_files();
+
+            //set @var dev_append_error_message to false to opt out of dev message
+            $showDevMessage = (self::config()->dev_append_error_message === true);
+
+            if ($errorMessage) {
+                // Dev environments will have the error message added regardless of template changes
+                if (Director::isDev() && $showDevMessage === true) {
+                    $errorPage->Content .= "\n<p><b>Error detail: "
+                        . Convert::raw2xml($errorMessage) ."</b></p>";
+                }
+
+                // On test/live environments, developers can opt to put $ResponseErrorMessage in their template
+                $errorPage->ResponseErrorMessage = DBField::create_field('Varchar', $errorMessage);
+            }
 
             $request = new HTTPRequest('GET', '');
             $request->setSession(Controller::curr()->getRequest()->getSession());
@@ -355,6 +379,7 @@ class ErrorPage extends Page
         return [
             400 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_400', '400 - Bad Request'),
             401 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_401', '401 - Unauthorized'),
+            402 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_402', '402 - Payment Required'),
             403 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_403', '403 - Forbidden'),
             404 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_404', '404 - Not Found'),
             405 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_405', '405 - Method Not Allowed'),
@@ -372,6 +397,7 @@ class ErrorPage extends Page
             417 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_417', '417 - Expectation Failed'),
             422 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_422', '422 - Unprocessable Entity'),
             429 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_429', '429 - Too Many Requests'),
+            451 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_451', '451 - Unavailable For Legal Reasons'),
             500 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_500', '500 - Internal Server Error'),
             501 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_501', '501 - Not Implemented'),
             502 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_502', '502 - Bad Gateway'),
