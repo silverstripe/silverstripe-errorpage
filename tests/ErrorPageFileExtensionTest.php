@@ -6,14 +6,17 @@ use SilverStripe\Assets\Dev\TestAssetStore;
 use SilverStripe\Assets\File;
 use SilverStripe\Assets\Shortcodes\FileShortcodeProvider;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\Dev\FunctionalTest;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\ErrorPage\ErrorPage;
+use SilverStripe\ORM\DB;
+use SilverStripe\ORM\ValidationException;
 use SilverStripe\Security\InheritedPermissions;
 use SilverStripe\Security\Security;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\View\Parsers\ShortcodeParser;
 
-class ErrorPageFileExtensionTest extends SapphireTest
+class ErrorPageFileExtensionTest extends FunctionalTest
 {
     /**
      * @var string
@@ -41,6 +44,7 @@ class ErrorPageFileExtensionTest extends SapphireTest
 
     protected function tearDown() : void
     {
+        DB::quiet(true);
         Versioned::set_reading_mode($this->versionedMode);
         TestAssetStore::reset();
         parent::tearDown();
@@ -106,5 +110,36 @@ class ErrorPageFileExtensionTest extends SapphireTest
             'file_link'
         );
         $this->assertEquals($fileLink, $shortcode);
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function testRequiredRecords()
+    {
+        $page = ErrorPage::singleton();
+        // Test that 500 error page creates static content
+        Config::modify()->set(SiteTree::class, 'create_default_pages', true);
+
+        DB::quiet(false);
+
+        $this->expectOutputRegex('/.*500 error page created.*/');
+        $page->requireDefaultRecords();
+
+        // Page is published
+        /** @var ErrorPage $error500Page */
+        $error500Page = ErrorPage::get()->find('ErrorCode', 500);
+        $this->assertInstanceOf(ErrorPage::class, $error500Page);
+        $this->assertTrue($error500Page->isLiveVersion());
+
+        // Check content is valid
+        $error500Content = $page->getContentForErrorcode(500);
+        $this->assertNotEmpty($error500Content);
+
+        // Rebuild and ensure that static files are refreshed
+        DB::quiet(false);
+
+        $this->expectOutputRegex('/.*500 error page refreshed.*/');
+        $page->requireDefaultRecords();
     }
 }

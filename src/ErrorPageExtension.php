@@ -492,9 +492,14 @@ class ErrorPageExtension extends DataExtension
         /** @var Page|ErrorPageExtension $page */
         $page = DataObject::get($owner->ClassName)->find('ErrorCode', $code);
         if (!$page) {
-            $page = Injector::inst()->create($owner->ClassName, $defaultData);
+            $page = Injector::inst()->create($owner->ClassName);
+            $page->update($defaultData);
             $page->write();
-            $page->copyVersionToStage(Versioned::DRAFT, Versioned::LIVE);
+        }
+
+        // Ensure page is published at latest version
+        if (!$page->isLiveVersion()) {
+            $page->publishSingle();
         }
 
         // Check if static files are enabled
@@ -502,25 +507,23 @@ class ErrorPageExtension extends DataExtension
             return;
         }
 
-        // Ensure this page has cached error content
-        $success = true;
-        if (!$page->hasStaticPage()) {
-            // Update static content
-            $success = $page->writeStaticPage();
-        } elseif ($page) {
-            // If page exists and already has content, no alteration_message is displayed
-            return;
-        }
+        // Force create or refresh of static page
+        $staticExists = $page->hasStaticPage();
+        $success = $page->writeStaticPage();
 
-        if ($success) {
-            DB::alteration_message(
-                sprintf('%s error page created', $code),
-                'created'
-            );
-        } else {
+        if (!$success) {
             DB::alteration_message(
                 sprintf('%s error page could not be created. Please check permissions', $code),
                 'error'
+            );
+        } elseif ($staticExists) {
+            DB::alteration_message(
+                sprintf('%s error page refreshed', $code),
+                'created'
+            );
+        } else {
+            DB::alteration_message(sprintf('%s error page created', $code),
+                'created'
             );
         }
     }
