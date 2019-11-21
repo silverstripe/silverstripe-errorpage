@@ -10,7 +10,7 @@ addons:
 env:
   global:
     - TRAVIS_NODE_VERSION="6"
-    - COMPOSER_ROOT_VERSION="1.5.x-dev"
+    - COMPOSER_ROOT_VERSION="1.6.x-dev"
 
 matrix:
   include:
@@ -32,9 +32,9 @@ before_script:
   - echo 'memory_limit = 2G' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 # Install composer dependencies
-  - composer require --no-update --prefer-dist silverstripe/recipe-cms:4.5.x-dev
-  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.1.x-dev --prefer-dist; fi
-  - if [[ $DB == SQLITE ]]; then composer require --no-update silverstripe/sqlite3:2.0.x-dev --prefer-dist; fi
+  - composer require --no-update --prefer-dist silverstripe/recipe-cms:4.6.x-dev
+  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.4.x-dev --prefer-dist; fi
+  - if [[ $DB == SQLITE ]]; then composer require --no-update silverstripe/sqlite3:2.2.x-dev --prefer-dist; fi
   - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
 script:
