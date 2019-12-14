@@ -2,19 +2,21 @@
 
 namespace SilverStripe\ErrorPage\Tests;
 
-use SilverStripe\Versioned\Versioned;
-use SilverStripe\ErrorPage\ErrorPage;
-use SilverStripe\CMS\Controllers\ContentController;
-use SilverStripe\Core\Config\Config;
-use SilverStripe\Dev\FunctionalTest;
 use SilverStripe\Assets\Dev\TestAssetStore;
-use SilverStripe\Control\HTTPResponse_Exception;
+use SilverStripe\CMS\Controllers\ContentController;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Director;
+use SilverStripe\Control\HTTPResponse_Exception;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Dev\FunctionalTest;
+use SilverStripe\ErrorPage\ErrorPage;
+use SilverStripe\ORM\DB;
+use SilverStripe\ORM\ValidationException;
+use SilverStripe\Versioned\Versioned;
 use SilverStripe\View\SSViewer;
 
 /**
- * @package cms
+ * @package    cms
  * @subpackage tests
  */
 class ErrorPageTest extends FunctionalTest
@@ -39,6 +41,7 @@ class ErrorPageTest extends FunctionalTest
 
     public function tearDown()
     {
+        DB::quiet(true);
         TestAssetStore::reset();
         parent::tearDown();
     }
@@ -206,5 +209,32 @@ class ErrorPageTest extends FunctionalTest
         );
         $expectedErrorPagePath = TestAssetStore::base_path() . '/error-404.html';
         $this->assertFileNotExists($expectedErrorPagePath, 'Error page should not be cached.');
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    public function testRequiredRecords()
+    {
+        // Test that 500 error page creates static content
+        Config::modify()->set(SiteTree::class, 'create_default_pages', true);
+        DB::quiet(false);
+        $this->expectOutputRegex('/.*500 error page created.*/');
+        ErrorPage::singleton()->requireDefaultRecords();
+
+        // Page is published
+        /** @var ErrorPage $error500Page */
+        $error500Page = ErrorPage::get()->find('ErrorCode', 500);
+        $this->assertInstanceOf(ErrorPage::class, $error500Page);
+        $this->assertTrue($error500Page->isLiveVersion());
+
+        // Check content is valid
+        $error500Content = ErrorPage::get_content_for_errorcode(500);
+        $this->assertNotEmpty($error500Content);
+
+        // Rebuild and ensure that static files are refreshed
+        DB::quiet(false);
+        $this->expectOutputRegex('/.*500 error page refreshed.*/');
+        ErrorPage::singleton()->requireDefaultRecords();
     }
 }

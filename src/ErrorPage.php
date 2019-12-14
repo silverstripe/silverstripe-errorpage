@@ -11,14 +11,14 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
-use SilverStripe\Core\Config\Config;
+use SilverStripe\Control\HTTPResponse_Exception;
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\Debug;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DB;
+use SilverStripe\ORM\ValidationException;
 use SilverStripe\Security\Member;
-use SilverStripe\Versioned\Versioned;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\SSViewer;
 
@@ -70,6 +70,7 @@ class ErrorPage extends Page
      * @var string
      */
     private static $store_filepath = null;
+
     /**
      * @param $member
      *
@@ -88,6 +89,7 @@ class ErrorPage extends Page
      *
      * @param int $statusCode
      * @return HTTPResponse
+     * @throws HTTPResponse_Exception
      */
     public static function response_for($statusCode)
     {
@@ -124,13 +126,15 @@ class ErrorPage extends Page
      * Ensures that there is always a 404 page by checking if there's an
      * instance of ErrorPage with a 404 and 500 error code. If there is not,
      * one is created when the DB is built.
+     *
+     * @throws ValidationException
      */
     public function requireDefaultRecords()
     {
         parent::requireDefaultRecords();
 
         // Only run on ErrorPage class directly, not subclasses
-        if (static::class !== self::class || !SiteTree::config()->create_default_pages) {
+        if (static::class !== self::class || !SiteTree::config()->get('create_default_pages')) {
             return;
         }
 
@@ -145,42 +149,47 @@ class ErrorPage extends Page
      * Build default record from specification fixture
      *
      * @param array $defaultData
+     * @throws ValidationException
      */
     protected function requireDefaultRecordFixture($defaultData)
     {
         $code = $defaultData['ErrorCode'];
-        $page = ErrorPage::get()->filter('ErrorCode', $code)->first();
-        $pageExists = !empty($page);
-        if (!$pageExists) {
-            $page = new ErrorPage($defaultData);
+
+        /** @var ErrorPage $page */
+        $page = ErrorPage::get()->find('ErrorCode', $code);
+        if (!$page) {
+            $page = static::create();
+            $page->update($defaultData);
             $page->write();
-            $page->copyVersionToStage(Versioned::DRAFT, Versioned::LIVE);
+        }
+
+        // Ensure page is published at latest version
+        if (!$page->isLiveVersion()) {
+            $page->publishSingle();
         }
 
         // Check if static files are enabled
-        if (!self::config()->enable_static_file) {
+        if (!self::config()->get('enable_static_file')) {
             return;
         }
 
-        // Ensure this page has cached error content
-        $success = true;
-        if (!$page->hasStaticPage()) {
-            // Update static content
-            $success = $page->writeStaticPage();
-        } elseif ($pageExists) {
-            // If page exists and already has content, no alteration_message is displayed
-            return;
-        }
-
-        if ($success) {
+        // Force create or refresh of static page
+        $staticExists = $page->hasStaticPage();
+        $success = $page->writeStaticPage();
+        if (!$success) {
             DB::alteration_message(
-                sprintf('%s error page created', $code),
+                sprintf('%s error page could not be created. Please check permissions', $code),
+                'error'
+            );
+        } elseif ($staticExists) {
+            DB::alteration_message(
+                sprintf('%s error page refreshed', $code),
                 'created'
             );
         } else {
             DB::alteration_message(
-                sprintf('%s error page could not be created. Please check permissions', $code),
-                'error'
+                sprintf('%s error page created', $code),
+                'created'
             );
         }
     }
@@ -260,13 +269,13 @@ class ErrorPage extends Page
      */
     protected function hasStaticPage()
     {
-        if (!self::config()->enable_static_file) {
+        if (!self::config()->get('enable_static_file')) {
             return false;
         }
 
         // Attempt to retrieve content from generated file handler
         $filename = $this->getErrorFilename();
-        $storeFilename = File::join_paths(self::config()->store_filepath, $filename);
+        $storeFilename = File::join_paths(self::config()->get('store_filepath'), $filename);
         $result = self::get_asset_handler()->getContent($storeFilename);
         return !empty($result);
     }
@@ -278,7 +287,7 @@ class ErrorPage extends Page
      */
     public function writeStaticPage()
     {
-        if (!self::config()->enable_static_file) {
+        if (!self::config()->get('enable_static_file')) {
             return false;
         }
 
@@ -305,7 +314,7 @@ class ErrorPage extends Page
         if ($errorContent) {
             // Store file content in the default store
             $storeFilename = File::join_paths(
-                self::config()->store_filepath,
+                self::config()->get('store_filepath'),
                 $this->getErrorFilename()
             );
             self::get_asset_handler()->setContent($storeFilename, $errorContent);
@@ -317,8 +326,7 @@ class ErrorPage extends Page
     }
 
     /**
-     * @param boolean $includerelations a boolean value to indicate if the labels returned include relation fields
-     *
+     * @param bool $includerelations a boolean value to indicate if the labels returned include relation fields
      * @return array
      */
     public function fieldLabels($includerelations = true)
@@ -337,14 +345,14 @@ class ErrorPage extends Page
      */
     public static function get_content_for_errorcode($statusCode)
     {
-        if (!self::config()->enable_static_file) {
+        if (!self::config()->get('enable_static_file')) {
             return null;
         }
 
         // Attempt to retrieve content from generated file handler
         $filename = self::get_error_filename($statusCode);
         $storeFilename = File::join_paths(
-            self::config()->store_filepath,
+            self::config()->get('store_filepath'),
             $filename
         );
         return self::get_asset_handler()->getContent($storeFilename);
