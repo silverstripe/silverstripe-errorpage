@@ -41,11 +41,11 @@ As a result, error pages may be cached either to a local filesystem, or an exter
 (which is configured via setting a new Flysystem backend with YAML).
 
 `ErrorPage::get_filepath_for_errorcode()` has been removed, because the local path for a specific code is
-no longer assumed. Instead you should use `ErrorPage::get_content_for_errorcode` which retrieves the
+no longer assumed. Instead you should use `ErrorPage::singleton()->getContentForErrorcode` which retrieves the
 appropriate content for that error using one of the methods above.
 
 In order to retrieve the actual filename (which is used to identify an error page regardless of base
-path), you can use `ErrorPage::get_error_filename()` instead. Unlike the old `get_filepath_for_errorcode`
+path), you can use `ErrorPage::singleton()->getErrorFilename()` instead. Unlike the old `get_filepath_for_errorcode`
 method, there is no $locale parameter.
 
 In case that user code must customise this filename, such as for extensions which provide a locale value
@@ -75,7 +75,105 @@ ErrorPage:
 
 ## Documentation
 
-To Do
+## Extensibility
+
+There are cases where you want to change the `ErrorPage` to some other page type.
+Most notable example would be to have an error page made out of blocks.
+One option is to apply the block related functionality to `ErrorPage` but this may be tricky as the block functionality may be more complex than the error page functionality.
+
+Fortunately, there is a way to apply `ErrorPage` functionality to an arbitrary page without too much hassle.
+
+First create your new error page like this:
+
+```
+<?php
+
+namespace App\HttpError;
+
+use App\Elemental;
+use SilverStripe\ErrorPage\ErrorPageExtension;
+use SilverStripe\Forms\FieldList;
+
+/**
+ * Class Page
+ *
+ * @property int $ErrorCode
+ * @mixin ErrorPageExtension
+ * @package App\HttpError
+ */
+class Page extends Elemental\Page
+{
+    /**
+     * @var string
+     */
+    private static $table_name = 'ErrorBlockPage';
+
+    /**
+     * @var string
+     */
+    private static $singular_name = 'Error block page';
+
+    /**
+     * @var string
+     */
+    private static $plural_name = 'Error block pages';
+
+    /**
+     * @var string
+     */
+    private static $description = 'Error page which is built from blocks';
+
+    /**
+     * @var array
+     */
+    private static $extensions = [
+        ErrorPageExtension::class,
+    ];
+
+    /**
+     * @return FieldList
+     */
+    public function getCMSFields(): FieldList
+    {
+        $fields = parent::getCMSFields();
+
+        $fields->addFieldsToTab(
+            'Root.Main',
+            [
+                $this->createErrorCodeField(),
+            ],
+            'ElementalArea'
+        );
+
+        return $fields;
+    }
+}
+```
+
+Note that this page extends basic block page. Make sure that this page has the `ErrorPageExtension` applied to it.
+Next we need to swap out the old `ErrorPage` with the new one. This can be done by a simple config yaml change:
+
+```
+
+---
+Name: app_http-error_extension
+After:
+  - '#errorpage-extensions'
+---
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\ErrorPage\ErrorPage:
+    class: App\HttpError\Page
+
+App\HttpError\Page:
+  hide_ancestor: App\HttpError\Page
+
+```
+
+All done, the error pages in your CMS are now using the new type. All error page related functionality is applied to your page.
+Note that we had to hide the new error page from the CMS create new page form.
+This is because the old error page will be already present and there is no need to have two options with the same page type.
+
+
 ### Theming
 To apply a custom template for the error page you will need to create a ErrorPage.ss file in either `templates/SilverStripe/ErrorPage/ErrorPage.ss` or `templates/SilverStripe/ErrorPage/Layout/ErrorPage.ss`
 

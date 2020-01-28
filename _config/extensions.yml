@@ -10,3 +10,6 @@ SilverStripe\Forms\Form:
 SilverStripe\Assets\Shortcodes\FileShortcodeProvider:
   extensions:
     - SilverStripe\ErrorPage\ErrorPageFileExtension
+SilverStripe\ErrorPage\ErrorPage:
+  extensions:
+    errorPage: SilverStripe\ErrorPage\ErrorPageExtension

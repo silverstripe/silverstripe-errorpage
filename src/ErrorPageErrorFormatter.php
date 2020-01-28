@@ -2,16 +2,22 @@
 
 namespace SilverStripe\ErrorPage;
 
-use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\Control\Director;
 use SilverStripe\Logging\DebugViewFriendlyErrorFormatter;
 
 /**
- * Provides {@see ErrorPage}-gnostic error handling
+ * Class ErrorPageErrorFormatter
+ *
+ * Provides @see ErrorPage - gnostic error handling
+ *
+ * @package SilverStripe\ErrorPage
  */
 class ErrorPageErrorFormatter extends DebugViewFriendlyErrorFormatter
 {
-
+    /**
+     * @param int $statusCode
+     * @return string|null
+     */
     public function output($statusCode)
     {
         // Ajax content is plain-text only
@@ -20,7 +26,7 @@ class ErrorPageErrorFormatter extends DebugViewFriendlyErrorFormatter
         }
 
         // Determine if cached ErrorPage content is available
-        $content = ErrorPage::get_content_for_errorcode($statusCode);
+        $content = ErrorPage::singleton()->getContentForErrorcode($statusCode);
         if ($content) {
             return $content;
         }

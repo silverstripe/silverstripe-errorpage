@@ -21,6 +21,9 @@ use SilverStripe\View\SSViewer;
  */
 class ErrorPageTest extends FunctionalTest
 {
+    /**
+     * @var string
+     */
     protected static $fixture_file = 'ErrorPageTest.yml';
 
     /**
@@ -33,6 +36,7 @@ class ErrorPageTest extends FunctionalTest
     public function setUp()
     {
         parent::setUp();
+
         // Set temporary asset backend store
         TestAssetStore::activate('ErrorPageTest');
         Config::modify()->set(ErrorPage::class, 'enable_static_file', true);
@@ -43,6 +47,7 @@ class ErrorPageTest extends FunctionalTest
     {
         DB::quiet(true);
         TestAssetStore::reset();
+
         parent::tearDown();
     }
 
@@ -118,13 +123,13 @@ class ErrorPageTest extends FunctionalTest
     public function testStaticCaching()
     {
         // Test new error code does not have static content
-        $error = ErrorPage::get_content_for_errorcode('401');
+        $error = ErrorPage::singleton()->getContentForErrorcode('401');
         $this->assertEmpty($error);
         $expectedErrorPagePath = TestAssetStore::base_path() . '/error-401.html';
         $this->assertFileNotExists($expectedErrorPagePath, 'Error page is not automatically cached');
 
         // Write new 401 page
-        $page = new ErrorPage();
+        $page = ErrorPage::create();
         $page->Title = '401 Error';
         $page->ErrorCode = 401;
         $page->Title = 'Unauthorised';
@@ -132,7 +137,7 @@ class ErrorPageTest extends FunctionalTest
         $page->publishRecursive();
 
         // Static cache should now exist
-        $this->assertNotEmpty(ErrorPage::get_content_for_errorcode('401'));
+        $this->assertNotEmpty(ErrorPage::singleton()->getContentForErrorcode('401'));
         $expectedErrorPagePath = TestAssetStore::base_path() . '/error-401.html';
         $this->assertFileExists($expectedErrorPagePath, 'Error page is cached');
     }
@@ -154,20 +159,20 @@ class ErrorPageTest extends FunctionalTest
         Config::modify()->set(ErrorPage::class, 'enable_static_file', false);
         $this->logInWithPermission('ADMIN');
 
-        $page = new ErrorPage();
+        $page = ErrorPage::create();
         $page->ErrorCode = 405;
         $page->Title = 'Method Not Allowed';
         $page->write();
         $page->publishRecursive();
 
         // Dynamic content is available
-        $response = ErrorPage::response_for('405');
+        $response = ErrorPage::singleton()->responseFor('405');
         $this->assertNotEmpty($response);
         $this->assertNotEmpty($response->getBody());
         $this->assertEquals(405, (int)$response->getStatusCode());
 
         // Static content is not available
-        $this->assertEmpty(ErrorPage::get_content_for_errorcode('405'));
+        $this->assertEmpty(ErrorPage::singleton()->getContentForErrorcode('405'));
         $expectedErrorPagePath = TestAssetStore::base_path() . '/error-405.html';
         $this->assertFileNotExists($expectedErrorPagePath, 'Error page is not cached in static location');
     }
@@ -229,12 +234,76 @@ class ErrorPageTest extends FunctionalTest
         $this->assertTrue($error500Page->isLiveVersion());
 
         // Check content is valid
-        $error500Content = ErrorPage::get_content_for_errorcode(500);
+        $error500Content = ErrorPage::singleton()->getContentForErrorcode(500);
         $this->assertNotEmpty($error500Content);
 
         // Rebuild and ensure that static files are refreshed
         DB::quiet(false);
         $this->expectOutputRegex('/.*500 error page refreshed.*/');
         ErrorPage::singleton()->requireDefaultRecords();
+    }
+
+    public function testModel()
+    {
+        /** @var ErrorPage $page */
+        $page = $this->objFromFixture(ErrorPage::class, '404');
+
+        $this->assertEquals(404, (int) $page->ErrorCode);
+        $this->assertFalse($page->canAddChildren());
+    }
+
+    /**
+     * @param string $name
+     * @param string $expected
+     * @dataProvider configDataProvider
+     */
+    public function testConfig($name, $expected)
+    {
+        /** @var ErrorPage $page */
+        $page = $this->objFromFixture(ErrorPage::class, '404');
+
+        $this->assertEquals($expected, $page->config()->get($name));
+    }
+
+    public function configDataProvider()
+    {
+        return [
+            [
+                'defaults',
+                [
+                    'ShowInMenus' => 0,
+                    'ShowInSearch' => 0,
+                    'ErrorCode' => 400,
+                    'CanViewType' => 'Inherit',
+                    'CanEditType' => 'Inherit',
+                ],
+            ],
+            [
+                'table_name',
+                'ErrorPage',
+            ],
+            [
+                'allowed_children',
+                [
+                    SiteTree::class,
+                ],
+            ],
+            [
+                'description',
+                'Custom content for different error cases (e.g. "Page not found")',
+            ],
+            [
+                'icon_class',
+                'font-icon-p-error',
+            ],
+            [
+                'enable_static_file',
+                true,
+            ],
+            [
+                'store_filepath',
+                null,
+            ],
+        ];
     }
 }
