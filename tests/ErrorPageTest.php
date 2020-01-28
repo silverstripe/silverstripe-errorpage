@@ -2,19 +2,18 @@
 
 namespace SilverStripe\ErrorPage\Tests;
 
-use SilverStripe\Control\Controller;
-use SilverStripe\Control\HTTPResponse;
-use SilverStripe\Core\Injector\Injector;
-use SilverStripe\Core\Kernel;
-use SilverStripe\Versioned\Versioned;
-use SilverStripe\ErrorPage\ErrorPage;
-use SilverStripe\CMS\Controllers\ContentController;
-use SilverStripe\Core\Config\Config;
-use SilverStripe\Dev\FunctionalTest;
 use SilverStripe\Assets\Dev\TestAssetStore;
-use SilverStripe\Control\HTTPResponse_Exception;
+use SilverStripe\CMS\Controllers\ContentController;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Control\Director;
+use SilverStripe\Control\HTTPResponse;
+use SilverStripe\Control\HTTPResponse_Exception;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Core\Kernel;
+use SilverStripe\Dev\FunctionalTest;
+use SilverStripe\ErrorPage\ErrorPage;
+use SilverStripe\Versioned\Versioned;
 use SilverStripe\View\SSViewer;
 
 /**
@@ -23,6 +22,9 @@ use SilverStripe\View\SSViewer;
  */
 class ErrorPageTest extends FunctionalTest
 {
+    /**
+     * @var string
+     */
     protected static $fixture_file = 'ErrorPageTest.yml';
 
     /**
@@ -35,6 +37,7 @@ class ErrorPageTest extends FunctionalTest
     public function setUp()
     {
         parent::setUp();
+
         // Set temporary asset backend store
         TestAssetStore::activate('ErrorPageTest');
         Config::modify()->set(ErrorPage::class, 'enable_static_file', true);
@@ -44,6 +47,7 @@ class ErrorPageTest extends FunctionalTest
     public function tearDown()
     {
         TestAssetStore::reset();
+
         parent::tearDown();
     }
 
@@ -119,13 +123,13 @@ class ErrorPageTest extends FunctionalTest
     public function testStaticCaching()
     {
         // Test new error code does not have static content
-        $error = ErrorPage::get_content_for_errorcode('401');
+        $error = ErrorPage::singleton()->getContentForErrorcode('401');
         $this->assertEmpty($error);
         $expectedErrorPagePath = TestAssetStore::base_path() . '/error-401.html';
         $this->assertFileNotExists($expectedErrorPagePath, 'Error page is not automatically cached');
 
         // Write new 401 page
-        $page = new ErrorPage();
+        $page = ErrorPage::create();
         $page->Title = '401 Error';
         $page->ErrorCode = 401;
         $page->Title = 'Unauthorised';
@@ -133,7 +137,7 @@ class ErrorPageTest extends FunctionalTest
         $page->publishRecursive();
 
         // Static cache should now exist
-        $this->assertNotEmpty(ErrorPage::get_content_for_errorcode('401'));
+        $this->assertNotEmpty(ErrorPage::singleton()->getContentForErrorcode('401'));
         $expectedErrorPagePath = TestAssetStore::base_path() . '/error-401.html';
         $this->assertFileExists($expectedErrorPagePath, 'Error page is cached');
     }
@@ -155,20 +159,20 @@ class ErrorPageTest extends FunctionalTest
         Config::modify()->set(ErrorPage::class, 'enable_static_file', false);
         $this->logInWithPermission('ADMIN');
 
-        $page = new ErrorPage();
+        $page = ErrorPage::create();
         $page->ErrorCode = 405;
         $page->Title = 'Method Not Allowed';
         $page->write();
         $page->publishRecursive();
 
         // Dynamic content is available
-        $response = ErrorPage::response_for('405');
+        $response = ErrorPage::singleton()->responseFor('405');
         $this->assertNotEmpty($response);
         $this->assertNotEmpty($response->getBody());
         $this->assertEquals(405, (int)$response->getStatusCode());
 
         // Static content is not available
-        $this->assertEmpty(ErrorPage::get_content_for_errorcode('405'));
+        $this->assertEmpty(ErrorPage::singleton()->getContentForErrorcode('405'));
         $expectedErrorPagePath = TestAssetStore::base_path() . '/error-405.html';
         $this->assertFileNotExists($expectedErrorPagePath, 'Error page is not cached in static location');
     }
@@ -224,8 +228,10 @@ class ErrorPageTest extends FunctionalTest
         $originalEnv = $kernel->getEnvironment();
         $kernel->setEnvironment($env);
         ErrorPage::config()->set('dev_append_error_message', $shouldShowInDev);
+
         /* @var HTTPResponse $response */
-        $response = ErrorPage::response_for(404, 'Really bad error');
+        $response = ErrorPage::singleton()->responseFor(404, 'Really bad error');
+
         $this->assertNotEmpty($response->getBody());
         if ($env === 'dev' && $shouldShowInDev) {
             $this->assertContains('Really bad error', $response->getBody());
@@ -246,6 +252,70 @@ class ErrorPageTest extends FunctionalTest
             ['dev', false],
             ['live', true],
             ['live', false]
+        ];
+    }
+
+    public function testModel()
+    {
+        /** @var ErrorPage $page */
+        $page = $this->objFromFixture(ErrorPage::class, '404');
+
+        $this->assertEquals(404, (int) $page->ErrorCode);
+        $this->assertFalse($page->canAddChildren());
+    }
+
+    /**
+     * @param string $name
+     * @param string $expected
+     * @dataProvider configDataProvider
+     */
+    public function testConfig($name, $expected)
+    {
+        /** @var ErrorPage $page */
+        $page = $this->objFromFixture(ErrorPage::class, '404');
+
+        $this->assertEquals($expected, $page->config()->get($name));
+    }
+
+    public function configDataProvider()
+    {
+        return [
+            [
+                'defaults',
+                [
+                    'ShowInMenus' => 0,
+                    'ShowInSearch' => 0,
+                    'ErrorCode' => 400,
+                    'CanViewType' => 'Inherit',
+                    'CanEditType' => 'Inherit',
+                ],
+            ],
+            [
+                'table_name',
+                'ErrorPage',
+            ],
+            [
+                'allowed_children',
+                [
+                    SiteTree::class,
+                ],
+            ],
+            [
+                'description',
+                'Custom content for different error cases (e.g. "Page not found")',
+            ],
+            [
+                'icon_class',
+                'font-icon-p-error',
+            ],
+            [
+                'enable_static_file',
+                true,
+            ],
+            [
+                'store_filepath',
+                null,
+            ],
         ];
     }
 }
