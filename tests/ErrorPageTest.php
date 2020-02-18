@@ -47,6 +47,11 @@ class ErrorPageTest extends FunctionalTest
     {
         TestAssetStore::reset();
         parent::tearDown();
+
+        // When this test is run after FulltextSearchable has been enabled, you end up with some gost DB entries
+        // that cause this test to fail.
+        $this->objFromFixture(ErrorPage::class, '404')->doUnpublish();
+        $this->objFromFixture(ErrorPage::class, '403')->doUnpublish();
     }
 
     public function test404ErrorPage()
