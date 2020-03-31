@@ -34,20 +34,18 @@ class ErrorPageTest extends FunctionalTest
      */
     protected $tmpAssetsPath = '';
 
-    public function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
-
         // Set temporary asset backend store
         TestAssetStore::activate('ErrorPageTest');
         Config::modify()->set(ErrorPage::class, 'enable_static_file', true);
         $this->logInWithPermission('ADMIN');
     }
 
-    public function tearDown()
+    protected function tearDown() : void
     {
         TestAssetStore::reset();
-
         parent::tearDown();
     }
 
@@ -117,7 +115,7 @@ class ErrorPageTest extends FunctionalTest
         $response = $this->get('Security/nosuchaction');
         $this->assertEquals($response->getStatusCode(), '404');
         $this->assertNotNull($response->getBody());
-        $this->assertContains('text/html', $response->getHeader('Content-Type'));
+        $this->assertStringContainsString('text/html', $response->getHeader('Content-Type'));
     }
 
     public function testStaticCaching()
@@ -234,9 +232,9 @@ class ErrorPageTest extends FunctionalTest
 
         $this->assertNotEmpty($response->getBody());
         if ($env === 'dev' && $shouldShowInDev) {
-            $this->assertContains('Really bad error', $response->getBody());
+            $this->assertStringContainsString('Really bad error', $response->getBody());
         } else {
-            $this->assertNotContains('Really bad error', $response->getBody());
+            $this->assertStringNotContainsString('Really bad error', $response->getBody());
         }
 
         $kernel->setEnvironment($originalEnv);

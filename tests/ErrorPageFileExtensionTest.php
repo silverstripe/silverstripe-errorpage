@@ -25,28 +25,24 @@ class ErrorPageFileExtensionTest extends SapphireTest
      */
     protected $versionedMode = null;
 
-    public function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
-
         $this->versionedMode = Versioned::get_reading_mode();
         Versioned::set_stage(Versioned::DRAFT);
         TestAssetStore::activate('ErrorPageFileExtensionTest');
-
         // Required so that shortcodes check permissions
         Config::modify()->set(FileShortcodeProvider::class, 'shortcodes_inherit_canview', false);
-
         $file = File::create();
         $file->setFromString('dummy', 'dummy.txt');
         $file->CanViewType = InheritedPermissions::LOGGED_IN_USERS;
         $file->write();
     }
 
-    public function tearDown()
+    protected function tearDown() : void
     {
         Versioned::set_reading_mode($this->versionedMode);
         TestAssetStore::reset();
-
         parent::tearDown();
     }
 
