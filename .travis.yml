@@ -38,9 +38,9 @@ before_script:
   - echo 'memory_limit = 2G' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 # Install composer dependencies
-  - composer require --no-update --prefer-dist silverstripe/recipe-cms:5.x-dev
-  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:3.x-dev --prefer-dist; fi
-  - if [[ $DB == SQLITE ]]; then composer require --no-update silverstripe/sqlite3:3.x-dev --prefer-dist; fi
+  - composer require --no-update silverstripe/recipe-cms:5.x-dev
+  - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:3.x-dev; fi
+  - if [[ $DB == SQLITE ]]; then composer require --no-update silverstripe/sqlite3:3.x-dev; fi
   - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
 script:
