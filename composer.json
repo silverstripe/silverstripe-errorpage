@@ -34,7 +34,8 @@
         }
     },
     "scripts": {
-        "lint": "vendor/bin/phpcs -s src/ tests/"
+        "lint": "vendor/bin/phpcs -s src/ tests/",
+        "lint-clean": "vendor/bin/phpcbf -s src/ tests/"
     },
     "autoload": {
         "psr-4": {

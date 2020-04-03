@@ -177,6 +177,30 @@ This is because the old error page will be already present and there is no need 
 ### Theming
 To apply a custom template for the error page you will need to create a ErrorPage.ss file in either `templates/SilverStripe/ErrorPage/ErrorPage.ss` or `templates/SilverStripe/ErrorPage/Layout/ErrorPage.ss`
 
+### Detailed error messages
+If you're using `$this->httpError($code, $message)` in your codebase and want to include the message that is passed into that method, you can add the `$ResponseErrorMessage` to your ErrorPage template. Use caution when including this information, as these messages are often intended for developers rather than end-users. 
+
+For example, one of your controllers may throw a 401 status code for some specific reason. Very broadly, a 401 means the request is Unauthorised; if your controller throws a 401, it can add also add a specific reason:
+
+```YourController.php
+return $this->httpError(401, 'This is only accessible on Sunday before 10AM.');```
+
+```YourErrorPage.ss
+<h1>$Title</h1>
+<% if ResponseErrorMessage %>
+<p class="lead">
+$ResponseErrorMessage
+</p>
+<% end_if %>
+</div>
+```
+
+These messages are appended to the ErrorPage template automatically when the site is in dev mode. You can disable this using the Config API. Setting this to false will also remove the $ResponseErrorMessage variable from your template.
+```yml
+SilverStripe\ErrorPage\ErrorPage:
+  dev_append_error_message: false
+```
+
 ## Reporting Issues
 
 Please [create an issue](http://github.com/silverstripe/silverstripe-errorpage/issues) for any bugs you've found, or features you're missing.
