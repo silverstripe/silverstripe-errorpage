@@ -3,6 +3,7 @@ nl:
     CODE: Foutcode
     CODE_400: '400 - Foute aanvraag'
     CODE_401: '401 - Niet geautorizeerd'
+    CODE_402: '402 - Betaling vereist'
     CODE_403: '403 - Toegang verboden'
     CODE_404: '404 - Niet gevonden'
     CODE_405: '405 - Methode niet toegestaan'
@@ -20,6 +21,7 @@ nl:
     CODE_417: '417 - Niet voldaan aan verwachting'
     CODE_422: '422 - Aanvraag kan niet verwerkt worden'
     CODE_429: '429 - Te veel aanvragen'
+    CODE_451: '451 - Niet beschikbaar om juridische redenen'
     CODE_500: '500 - Interne serverfout'
     CODE_501: '501 - Niet geïmplementeerd'
     CODE_502: '502 - Verkeerde Gateway'
