@@ -19,7 +19,7 @@ env:
 matrix:
   include:
     - php: 7.1
-      env: DB=MYSQL PHPUNIT_TEST=1 PHPCS_TEST=1
+      env: DB=MYSQL PHPUNIT_TEST=1 PHPCS_TEST=1 COMPOSER_ARG=--prefer-lowest
     - php: 7.2
       env: DB=PGSQL PHPUNIT_TEST=1
     - php: 7.3
@@ -30,11 +30,13 @@ matrix:
       env: DB=MYSQL PHPUNIT_COVERAGE_TEST=1
     - php: 7.3
       env: DB=MYSQL PHPUNIT_TEST=1
+    - php: nightly
+      env: PHPUNIT_TEST=1 COMPOSER_ARG=--ignore-platform-reqs WITH_XDEBUG=1
 
 before_script:
 # Init PHP
   - phpenv rehash
-  - phpenv config-rm xdebug.ini
+  - if [[ ! $WITH_XDEBUG ]] ; then phpenv config-rm xdebug.ini; fi
   - echo 'memory_limit = 2G' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 # Install composer dependencies
@@ -43,7 +45,7 @@ before_script:
   - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.x-dev --prefer-dist; fi
   - if [[ $DB == SQLITE ]]; then composer require --no-update silverstripe/sqlite3:2.x-dev --prefer-dist; fi
   - if [[ $PHPCS_TEST ]]; then composer require squizlabs/php_codesniffer:^3 --no-update; fi
-  - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
+  - composer update --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile $COMPOSER_ARG
 
 script:
   - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit tests flush=1; fi
