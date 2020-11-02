@@ -3,6 +3,7 @@ eo:
     CODE: Erarkodo
     CODE_400: '400 - Malbona peto'
     CODE_401: '401 - Nerajtigita'
+    CODE_402: '402 - Pago bezonata'
     CODE_403: '403 - Malpermesita'
     CODE_404: '404 - Ne trovita'
     CODE_405: '405 - Metodo ne permesita'
@@ -20,6 +21,7 @@ eo:
     CODE_417: '417 - Atendo malsukcesis'
     CODE_422: '422 - Ento netrakteblas'
     CODE_429: '429 - Tro da petoj'
+    CODE_451: '451 - Nedisponebla pro juraj kialoj'
     CODE_500: '500 - Interna servila eraro'
     CODE_501: '501 - Ne realigita'
     CODE_502: '502 - Maltaŭga kluzo'
