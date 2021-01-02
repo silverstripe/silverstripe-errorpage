@@ -25,7 +25,7 @@
     },
     "require-dev": {
         "sminnee/phpunit": "^5.7",
-        "squizlabs/php_codesniffer": "^3.0"
+        "squizlabs/php_codesniffer": "^3"
     },
     "scripts": {
         "lint": "vendor/bin/phpcs -s src/ tests/"
