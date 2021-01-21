@@ -1,6 +1,6 @@
 # SilverStripe ErrorPage Module
 
-[![Build Status](https://api.travis-ci.org/silverstripe/silverstripe-errorpage.svg?branch=master)](https://travis-ci.org/silverstripe/silverstripe-errorpage)
+[![Build Status](https://api.travis-ci.com/silverstripe/silverstripe-errorpage.svg?branch=1)](https://travis-ci.com/silverstripe/silverstripe-errorpage)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/silverstripe-errorpage/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-errorpage/?branch=master)
 [![codecov](https://codecov.io/gh/silverstripe/silverstripe-errorpage/branch/master/graph/badge.svg)](https://codecov.io/gh/silverstripe/silverstripe-errorpage)
 [![License](https://poser.pugx.org/silverstripe/errorpage/license.svg)](https://github.com/silverstripe/silverstripe-errorpage#license)
