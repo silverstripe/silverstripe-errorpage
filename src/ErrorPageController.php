@@ -4,12 +4,20 @@ namespace SilverStripe\ErrorPage;
 use PageController;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
+use SilverStripe\View\SSViewer;
 
 /**
  * Controller for ErrorPages.
  */
 class ErrorPageController extends PageController
 {
+    protected function init()
+    {
+        SSViewer::set_themes(SSViewer::config()->themes);
+
+        parent::init();
+    }
+
     /**
      * Overload the provided {@link Controller::handleRequest()} to append the
      * correct status code post request since otherwise permission related error
