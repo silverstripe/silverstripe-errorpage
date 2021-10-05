@@ -31,8 +31,4 @@ de:
     DEFAULTSERVERERRORPAGECONTENT: '<p>Entschuldigung, bei der Bearbeitung ihrer Anfrage ist ein Problem aufgetreten.</p>'
     DEFAULTSERVERERRORPAGETITLE: Serverfehler
     DESCRIPTION: 'Spezieller Inhalt für andere Fehlerfälle (z.B. "Seite nicht gefunden")'
-    PLURALNAME: Fehlerseiten
-    PLURALS:
-      one: 'Eine Fehlerseite'
-      other: '{count} Fehlerseiten'
     SINGULARNAME: Fehlerseite

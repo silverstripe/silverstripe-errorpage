@@ -33,7 +33,7 @@ it:
     DEFAULTSERVERERRORPAGECONTENT: '<p>Spiacente, c''è stato un problema nella gestione della richiesta.</p>'
     DEFAULTSERVERERRORPAGETITLE: 'Errore server'
     DESCRIPTION: 'Contenuto personalizzato per i differenti casi di errore (per esempio "Pagina non trovata")'
-    PLURALNAME: 'Pagine di Errore'
+    PLURALNAME: 'Pagine Base'
     PLURALS:
       one: 'Una Pagina Errore'
       other: '{count} Pagine Errore'

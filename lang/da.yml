@@ -31,8 +31,4 @@ da:
     DEFAULTSERVERERRORPAGECONTENT: '<p>Beklager men der var et problem med at gennemføre din forespørgsel.</p>'
     DEFAULTSERVERERRORPAGETITLE: 'Server fejl'
     DESCRIPTION: 'Tilpasset indhold for diverse fejl scenarier (f.eks. "Siden blev ikke fundet")'
-    PLURALNAME: Fejlsider
-    PLURALS:
-      one: 'En fejlside'
-      other: '{count} Fejlsider'
     SINGULARNAME: Fejlside

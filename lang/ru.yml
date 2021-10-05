@@ -31,10 +31,4 @@ ru:
     DEFAULTSERVERERRORPAGECONTENT: '<p>Возникла проблема с обработкой Вашего запроса.</p>'
     DEFAULTSERVERERRORPAGETITLE: 'Ошибка сервера'
     DESCRIPTION: 'Индивидуальное содержимое для различных страниц ошибок (например "Страница не найдена")'
-    PLURALNAME: 'Страницы ошибок'
-    PLURALS:
-      one: 'Страница ошибки'
-      few: '{count} Страницы ошибок'
-      many: '{count} Страниц ошибок'
-      other: '{count} Страниц ошибок'
     SINGULARNAME: 'Страница ошибки'
