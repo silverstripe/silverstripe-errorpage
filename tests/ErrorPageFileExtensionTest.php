@@ -19,7 +19,7 @@ class ErrorPageFileExtensionTest extends SapphireTest
 
     protected $versionedMode = null;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->versionedMode = Versioned::get_reading_mode();
@@ -34,7 +34,7 @@ class ErrorPageFileExtensionTest extends SapphireTest
         $file->write();
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Versioned::set_reading_mode($this->versionedMode);
         TestAssetStore::reset();

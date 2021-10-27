@@ -34,7 +34,7 @@ class ErrorPageTest extends FunctionalTest
      */
     protected $tmpAssetsPath = '';
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         // Set temporary asset backend store
@@ -43,7 +43,7 @@ class ErrorPageTest extends FunctionalTest
         $this->logInWithPermission('ADMIN');
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         DB::quiet(true);
         TestAssetStore::reset();
@@ -121,7 +121,7 @@ class ErrorPageTest extends FunctionalTest
         $response = $this->get('Security/nosuchaction');
         $this->assertEquals($response->getStatusCode(), '404');
         $this->assertNotNull($response->getBody());
-        $this->assertContains('text/html', $response->getHeader('Content-Type'));
+        $this->assertStringContainsString('text/html', $response->getHeader('Content-Type'));
     }
 
     public function testStaticCaching()
@@ -130,7 +130,7 @@ class ErrorPageTest extends FunctionalTest
         $error = ErrorPage::get_content_for_errorcode('401');
         $this->assertEmpty($error);
         $expectedErrorPagePath = TestAssetStore::base_path() . '/error-401.html';
-        $this->assertFileNotExists($expectedErrorPagePath, 'Error page is not automatically cached');
+        $this->assertFileDoesNotExist($expectedErrorPagePath, 'Error page is not automatically cached');
 
         // Write new 401 page
         $page = new ErrorPage();
@@ -178,7 +178,7 @@ class ErrorPageTest extends FunctionalTest
         // Static content is not available
         $this->assertEmpty(ErrorPage::get_content_for_errorcode('405'));
         $expectedErrorPagePath = TestAssetStore::base_path() . '/error-405.html';
-        $this->assertFileNotExists($expectedErrorPagePath, 'Error page is not cached in static location');
+        $this->assertFileDoesNotExist($expectedErrorPagePath, 'Error page is not cached in static location');
     }
 
     public function testGetByLink()
@@ -217,7 +217,7 @@ class ErrorPageTest extends FunctionalTest
             'writeStaticPage should return false when enable_static_file is true'
         );
         $expectedErrorPagePath = TestAssetStore::base_path() . '/error-404.html';
-        $this->assertFileNotExists($expectedErrorPagePath, 'Error page should not be cached.');
+        $this->assertFileDoesNotExist($expectedErrorPagePath, 'Error page should not be cached.');
     }
 
     /**
@@ -236,9 +236,9 @@ class ErrorPageTest extends FunctionalTest
         $response = ErrorPage::response_for(404, 'Really bad error');
         $this->assertNotEmpty($response->getBody());
         if ($env === 'dev' && $shouldShowInDev) {
-            $this->assertContains('Really bad error', $response->getBody());
+            $this->assertStringContainsString('Really bad error', $response->getBody());
         } else {
-            $this->assertNotContains('Really bad error', $response->getBody());
+            $this->assertStringNotContainsString('Really bad error', $response->getBody());
         }
 
         $kernel->setEnvironment($originalEnv);
