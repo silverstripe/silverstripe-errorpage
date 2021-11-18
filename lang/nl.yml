@@ -36,5 +36,5 @@ nl:
     PLURALNAME: 'Foutpagina''s'
     PLURALS:
       one: 'Een foutpagina'
-      other: '{count} Foutpagina''s'
+      other: '{count} foutpagina''s'
     SINGULARNAME: Foutpagina
