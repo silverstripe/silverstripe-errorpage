@@ -1,4 +1,4 @@
-# SilverStripe ErrorPage Module
+# Silverstripe ErrorPage Module
 
 [![Build Status](https://api.travis-ci.com/silverstripe/silverstripe-errorpage.svg?branch=1)](https://travis-ci.com/silverstripe/silverstripe-errorpage)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/silverstripe-errorpage/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-errorpage/?branch=master)
@@ -8,7 +8,7 @@
 
 ## Overview
 
-Provides an ErrorPage page type for the [SilverStripe CMS](https://github.com/silverstripe/silverstripe-cms), allowing CMS authors to set custom content for error page responses by error code. Error page responses are fully themed.
+Provides an ErrorPage page type for the [Silverstripe CMS](https://github.com/silverstripe/silverstripe-cms), allowing CMS authors to set custom content for error page responses by error code. Error page responses are fully themed.
 
 ## Installation
 
@@ -20,11 +20,11 @@ You'll also need to run `dev/build`, which will generate a 500 and 404 error pag
 
 ## Limitations
 
-The functionally in this module was separated out from the SilverStripe CMS module and retains some [existing issues](https://github.com/silverstripe/silverstripe-framework/issues/4149).
+The functionally in this module was separated out from the Silverstripe CMS module and retains some [existing issues](https://github.com/silverstripe/silverstripe-framework/issues/4149).
 An issue of note is that static error pages are generated but are rarely served up, and rarely re-generated. This can lead to website visitors seeing a stale or broken page in the event of a 500 server error.
 Contributions are welcome, please open a pull request if you want to add a feature or fix a problem.
 
-## Upgrading from SilverStripe 3.x
+## Upgrading from Silverstripe 3.x
 
 ### API changes
 
