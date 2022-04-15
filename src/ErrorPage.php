@@ -22,7 +22,7 @@ use SilverStripe\Security\Member;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\SSViewer;
 use SilverStripe\Core\Convert;
-use SilverStripe\ORM\FieldType\DBFIeld;
+use SilverStripe\ORM\FieldType\DBField;
 
 /**
  * ErrorPage holds the content for the page of an error response.
