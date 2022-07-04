@@ -2,6 +2,8 @@
 
 namespace SilverStripe\ErrorPage;
 
+use SilverStripe\Admin\LeftAndMain;
+use SilverStripe\Control\Controller;
 use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
@@ -23,12 +25,18 @@ class ErrorPageControllerExtension extends Extension
      */
     public function onBeforeHTTPError($statusCode, $request, $errorMessage = null)
     {
-        if (Director::is_ajax()) {
+        if (Director::is_ajax() || $this->isAdminController()) {
             return;
         }
         $response = ErrorPage::response_for($statusCode, $errorMessage);
         if ($response) {
             throw new HTTPResponse_Exception($response, $statusCode);
         }
+    }
+
+    private function isAdminController(): bool
+    {
+        return ($this->owner instanceof LeftAndMain)
+            || Controller::has_curr() && (Controller::curr() instanceof LeftAndMain);
     }
 }
