@@ -28,11 +28,7 @@
         "phpunit/phpunit": "^8 || ^9",
         "squizlabs/php_codesniffer": "^3.0"
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.x-dev"
-        }
-    },
+    "extra": {},
     "scripts": {
         "lint": "vendor/bin/phpcs -s src/ tests/",
         "lint-clean": "vendor/bin/phpcbf -s src/ tests/"
