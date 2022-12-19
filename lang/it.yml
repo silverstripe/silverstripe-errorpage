@@ -37,4 +37,5 @@ it:
     PLURALS:
       one: 'Una Pagina Errore'
       other: '{count} Pagine Errore'
+      many: '{count} Pagine Errore'
     SINGULARNAME: 'Pagina di Errore'
