@@ -428,7 +428,7 @@ class ErrorPage extends Page
         if (!$instance) {
             $instance = ErrorPage::singleton();
         }
-        // Allow modules to extend this filename (e.g. for multi-domain, translatable)
+        // Allow modules to extend this filename (e.g. for multi-domain)
         $name = "error-{$statusCode}.html";
         $instance->extend('updateErrorFilename', $name, $statusCode);
         return $name;
