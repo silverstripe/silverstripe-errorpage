@@ -31,10 +31,12 @@ pl:
     DEFAULTSERVERERRORPAGECONTENT: '<p>Wystąpił problem z obsługą Twojego żądania.</p>'
     DEFAULTSERVERERRORPAGETITLE: 'Błąd serwera'
     DESCRIPTION: 'Niestandardowa treść dla różnych przypadków błędu (np. "Nie znaleziono strony")'
-    PLURALNAME: 'Strony błędów'
+    PLURALNAME: Strony
     PLURALS:
       one: 'Strona błędów'
-      few: '{count} stron błędów'
-      many: '{count} stron błędów'
-      other: '{count} stron błędów'
+      few: 'Stron błędów {count}'
+      many: 'Stron błędów {count}'
+      other: 'Strony błędów {count}'
     SINGULARNAME: 'Strona błędów'
+    CODE_402: '402 — Wymagana płatność'
+    CODE_451: '451 — Niedostępne ze względów prawnych'
