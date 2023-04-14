@@ -10,7 +10,7 @@ Provides an ErrorPage page type for the [Silverstripe CMS](https://github.com/si
 ## Installation
 
 ```
-$ composer require silverstripe/errorpage
+composer require silverstripe/errorpage
 ```
 
 You'll also need to run `dev/build`, which will generate a 500 and 404 error page.
