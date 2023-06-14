@@ -28,7 +28,7 @@ en:
     CODE_503: '503 - Service Unavailable'
     CODE_504: '504 - Gateway Timeout'
     CODE_505: '505 - HTTP Version Not Supported'
-    DEFAULTERRORPAGECONTENT: '<p>Sorry, it seems you were trying to access a page that doesn''t exist.</p><p>Please check the spelling of the URL you were trying to access and try again.</p>'
+    DEFAULTERRORPAGECONTENT: "<p>Sorry, it seems you were trying to access a page that doesn't exist.</p><p>Please check the spelling of the URL you were trying to access and try again.</p>"
     DEFAULTERRORPAGETITLE: 'Page not found'
     DEFAULTSERVERERRORPAGECONTENT: '<p>Sorry, there was a problem with handling your request.</p>'
     DEFAULTSERVERERRORPAGETITLE: 'Server error'
@@ -38,3 +38,4 @@ en:
       one: 'An Error Page'
       other: '{count} Base Pages'
     SINGULARNAME: 'Error Page'
+    db_ErrorCode: 'Error code'
