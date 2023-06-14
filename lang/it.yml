@@ -39,3 +39,4 @@ it:
       other: '{count} Pagine Errore'
       many: '{count} Pagine Errore'
     SINGULARNAME: 'Pagina di Errore'
+    db_ErrorCode: 'Codice di errore'

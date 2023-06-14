@@ -36,3 +36,4 @@ fr:
       one: 'Une page d''erreur'
       other: '{count} pages d''erreur'
     SINGULARNAME: 'Page d’erreur'
+    db_ErrorCode: 'Code d''erreur'

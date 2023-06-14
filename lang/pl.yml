@@ -40,3 +40,4 @@ pl:
     SINGULARNAME: 'Strona błędów'
     CODE_402: '402 — Wymagana płatność'
     CODE_451: '451 — Niedostępne ze względów prawnych'
+    db_ErrorCode: 'Kod błędu'
