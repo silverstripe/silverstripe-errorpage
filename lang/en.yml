@@ -38,3 +38,4 @@ en:
       one: 'An Error Page'
       other: '{count} Base Pages'
     SINGULARNAME: 'Error Page'
+    db_ErrorCode: 'Error code'

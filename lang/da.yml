@@ -36,3 +36,4 @@ da:
       one: 'En fejlside'
       other: '{count} Fejlsider'
     SINGULARNAME: Fejlside
+    db_ErrorCode: 'Fejl kode'

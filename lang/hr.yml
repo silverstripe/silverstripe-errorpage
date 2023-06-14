@@ -6,3 +6,4 @@ hr:
     DEFAULTSERVERERRORPAGECONTENT: '<p>Nažalost, dogodio se problem s vašim zahtjevom.</p>'
     DEFAULTSERVERERRORPAGETITLE: 'Serverska greška'
     DESCRIPTION: 'Prilagođeni sadržaj za različite slučajeve pogrešaka (npr., "Stranica nije pronađena")'
+    db_ErrorCode: 'Kod greške'
