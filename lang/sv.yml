@@ -24,3 +24,4 @@ sv:
       one: 'En felsida'
       other: '{count} felsidor'
     SINGULARNAME: Felsida
+    db_ErrorCode: Felkod
