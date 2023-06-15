@@ -21,3 +21,4 @@ fi:
       one: Virhesivu
       other: '{count} Virhesivua'
     SINGULARNAME: Virhesivu
+    db_ErrorCode: Virhekoodi

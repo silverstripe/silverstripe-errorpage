@@ -36,3 +36,4 @@ de:
       one: 'Eine Fehlerseite'
       other: '{count} Fehlerseiten'
     SINGULARNAME: Fehlerseite
+    db_ErrorCode: Fehlercode

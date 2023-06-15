@@ -38,3 +38,4 @@ eo:
       one: '1 baza paĝo'
       other: '{count} bazaj paĝoj'
     SINGULARNAME: 'Erara paĝo'
+    db_ErrorCode: Erarkodo
