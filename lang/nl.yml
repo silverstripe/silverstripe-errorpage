@@ -38,3 +38,4 @@ nl:
       one: 'Een foutpagina'
       other: '{count} foutpagina''s'
     SINGULARNAME: Foutpagina
+    db_ErrorCode: Foutcode

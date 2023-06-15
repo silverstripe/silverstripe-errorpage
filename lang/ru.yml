@@ -38,3 +38,4 @@ ru:
       many: '{count} Страниц ошибок'
       other: '{count} Страниц ошибок'
     SINGULARNAME: 'Страница ошибки'
+    db_ErrorCode: 'Код ошибки'
