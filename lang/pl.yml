@@ -3,6 +3,7 @@ pl:
     CODE: 'Kod błędu'
     CODE_400: '400 - Nieprawidłowe zapytanie'
     CODE_401: '401 - Nieautoryzowany dostęp'
+    CODE_402: '402 — Wymagana płatność'
     CODE_403: '403 - Zabroniony'
     CODE_404: '404 - Nie znaleziono'
     CODE_405: '405 - Niedozwolona metoda'
@@ -20,6 +21,7 @@ pl:
     CODE_417: '417 - Oczekiwana wartość nie do zwrócenia'
     CODE_422: '422 - Niewłaściwe dane'
     CODE_429: '429 - Zbyt wiele żądań'
+    CODE_451: '451 — Niedostępne ze względów prawnych'
     CODE_500: '500 - Wewnętrzny błąd serwera'
     CODE_501: '501 - Nie zaimplementowano'
     CODE_502: '502 - Błąd bramy'
@@ -33,11 +35,9 @@ pl:
     DESCRIPTION: 'Niestandardowa treść dla różnych przypadków błędu (np. "Nie znaleziono strony")'
     PLURALNAME: Strony
     PLURALS:
-      one: 'Strona błędów'
       few: 'Stron błędów {count}'
       many: 'Stron błędów {count}'
+      one: 'Strona błędów'
       other: 'Strony błędów {count}'
     SINGULARNAME: 'Strona błędów'
-    CODE_402: '402 — Wymagana płatność'
-    CODE_451: '451 — Niedostępne ze względów prawnych'
     db_ErrorCode: 'Kod błędu'
