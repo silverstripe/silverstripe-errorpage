@@ -35,8 +35,8 @@ it:
     DESCRIPTION: 'Contenuto personalizzato per i differenti casi di errore (per esempio "Pagina non trovata")'
     PLURALNAME: 'Pagine Base'
     PLURALS:
+      many: '{count} Pagine Errore'
       one: 'Una Pagina Errore'
       other: '{count} Pagine Errore'
-      many: '{count} Pagine Errore'
     SINGULARNAME: 'Pagina di Errore'
     db_ErrorCode: 'Codice di errore'
