@@ -49,6 +49,19 @@ SilverStripe\ErrorPage\ErrorPage:
   dev_append_error_message: false
 ```
 
+### Limiting options in the CMS
+By default, all available error codes are present in the dropdown in the CMS. This can be overwhelming and there are a few (looking at you, 418) that can
+be confusing. To that end, you can limit the codes in the dropdown with the config value `allowed_error_codes` like so:
+
+```yml
+SilverStripe\ErrorPage\ErrorPage:
+  allowed_error_codes:
+    - 400
+    - 403
+    - 404
+    - 500
+```
+
 ## Reporting Issues
 
 Please [create an issue](http://github.com/silverstripe/silverstripe-errorpage/issues) for any bugs you've found, or features you're missing.
