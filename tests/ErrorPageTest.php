@@ -283,4 +283,21 @@ class ErrorPageTest extends FunctionalTest
         $this->expectOutputRegex('/.*500 error page refreshed.*/');
         ErrorPage::singleton()->requireDefaultRecords();
     }
+
+    public function testAllowedAllErrorCodes()
+    {
+        $page = new ErrorPage();
+        $allCodes = $page->getCMSFields()->dataFieldByName('ErrorCode')->getSource();
+        $this->assertCount(40, $allCodes);
+    }
+
+    public function testAllowedErrorCodes()
+    {
+        Config::modify()->set(ErrorPage::class, 'allowed_error_codes', [400, 500]);
+        $page = new ErrorPage();
+        $codes = $page->getCMSFields()->dataFieldByName('ErrorCode')->getSource();
+        $this->assertCount(2, $codes);
+        $this->assertArrayHasKey(400, $codes);
+        $this->assertArrayHasKey(500, $codes);
+    }
 }

@@ -38,19 +38,19 @@ use SilverStripe\ORM\FieldType\DBField;
  */
 class ErrorPage extends Page
 {
-    private static $db = array(
+    private static $db = [
         "ErrorCode" => "Int",
-    );
+    ];
 
-    private static $defaults = array(
+    private static $defaults = [
         "ShowInMenus" => 0,
         "ShowInSearch" => 0,
         "ErrorCode" => 400
-    );
+    ];
 
     private static $table_name = 'ErrorPage';
 
-    private static $allowed_children = array();
+    private static $allowed_children = [];
 
     private static $description = 'Custom content for different error cases (e.g. "Page not found")';
 
@@ -81,6 +81,12 @@ class ErrorPage extends Page
     private static $store_filepath = null;
 
     /**
+     * An array of error codes to allow in the CMS
+     * If null, defaults to all available codes (see self::getCodes())
+     */
+    private static ?array $allowed_error_codes = null;
+
+    /**
      * @param $member
      *
      * @return boolean
@@ -106,9 +112,9 @@ class ErrorPage extends Page
         // first attempt to dynamically generate the error page
         /** @var ErrorPage $errorPage */
         $errorPage = ErrorPage::get()
-            ->filter(array(
+            ->filter([
                 "ErrorCode" => $statusCode
-            ))->first();
+            ])->first();
 
         if ($errorPage) {
             Requirements::clear();
@@ -226,8 +232,8 @@ class ErrorPage extends Page
      */
     protected function getDefaultRecords()
     {
-        $data = array(
-            array(
+        $data = [
+            [
                 'ErrorCode' => 404,
                 'Title' => _t('SilverStripe\\ErrorPage\\ErrorPage.DEFAULTERRORPAGETITLE', 'Page not found'),
                 'Content' => _t(
@@ -235,16 +241,16 @@ class ErrorPage extends Page
                     '<p>Sorry, it seems you were trying to access a page that doesn\'t exist.</p>'
                     . '<p>Please check the spelling of the URL you were trying to access and try again.</p>'
                 )
-            ),
-            array(
+            ],
+            [
                 'ErrorCode' => 500,
                 'Title' => _t('SilverStripe\\ErrorPage\\ErrorPage.DEFAULTSERVERERRORPAGETITLE', 'Server error'),
                 'Content' => _t(
                     'SilverStripe\\ErrorPage\\ErrorPage.DEFAULTSERVERERRORPAGECONTENT',
                     '<p>Sorry, there was a problem with handling your request.</p>'
                 )
-            )
-        );
+            ]
+        ];
 
         $this->extend('getDefaultRecords', $data);
 
@@ -384,7 +390,7 @@ class ErrorPage extends Page
 
     protected function getCodes()
     {
-        return [
+        $allCodes = [
             400 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_400', '400 - Bad Request'),
             401 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_401', '401 - Unauthorized'),
             402 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_402', '402 - Payment Required'),
@@ -426,6 +432,13 @@ class ErrorPage extends Page
             510 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_510', '510 - Not Extended'),
             511 => _t('SilverStripe\\ErrorPage\\ErrorPage.CODE_511', '511 - Network Authentication Required'),
         ];
+
+        $allowedCodes = static::config()->get('allowed_error_codes');
+        if ($allowedCodes === null) {
+            return $allCodes;
+        }
+
+        return array_intersect_key($allCodes, array_flip($allowedCodes));
     }
 
     /**
