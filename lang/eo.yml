@@ -33,7 +33,7 @@ eo:
     DEFAULTSERVERERRORPAGECONTENT: '<p>Bedaŭrinde okazis problemo pri la traktado de via peto.</p>'
     DEFAULTSERVERERRORPAGETITLE: 'Servila eraro'
     DESCRIPTION: 'Propra enhavo por diversaj prieraraj okazoj (ekz-e "Ne trovis la paĝon")'
-    PLURALNAME: 'Bazaj paĝoj'
+    PLURALNAME: 'Eraraj paĝoj'
     PLURALS:
       one: '1 baza paĝo'
       other: '{count} bazaj paĝoj'
