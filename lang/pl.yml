@@ -33,7 +33,7 @@ pl:
     DEFAULTSERVERERRORPAGECONTENT: '<p>Wystąpił problem z obsługą Twojego żądania.</p>'
     DEFAULTSERVERERRORPAGETITLE: 'Błąd serwera'
     DESCRIPTION: 'Niestandardowa treść dla różnych przypadków błędu (np. "Nie znaleziono strony")'
-    PLURALNAME: Strony
+    PLURALNAME: 'Strony błędów'
     PLURALS:
       few: 'Stron błędów {count}'
       many: 'Stron błędów {count}'
