@@ -19,7 +19,7 @@ en:
     CODE_415: '415 - Unsupported Media Type'
     CODE_416: '416 - Request Range Not Satisfiable'
     CODE_417: '417 - Expectation Failed'
-    CODE_418: "418 - I'm a teapot"
+    CODE_418: '418 - I''m a teapot'
     CODE_421: '421 - Misdirected Request'
     CODE_422: '422 - Unprocessable Entity'
     CODE_423: '423 - Locked'
@@ -41,7 +41,7 @@ en:
     CODE_508: '508 - Loop Detected'
     CODE_510: '510 - Not Extended'
     CODE_511: '511 - Network Authentication Required'
-    DEFAULTERRORPAGECONTENT: "<p>Sorry, it seems you were trying to access a page that doesn't exist.</p><p>Please check the spelling of the URL you were trying to access and try again.</p>"
+    DEFAULTERRORPAGECONTENT: '<p>Sorry, it seems you were trying to access a page that doesn''t exist.</p><p>Please check the spelling of the URL you were trying to access and try again.</p>'
     DEFAULTERRORPAGETITLE: 'Page not found'
     DEFAULTSERVERERRORPAGECONTENT: '<p>Sorry, there was a problem with handling your request.</p>'
     DEFAULTSERVERERRORPAGETITLE: 'Server error'
