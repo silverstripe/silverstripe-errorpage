@@ -8,6 +8,8 @@ use SilverStripe\View\SSViewer;
 
 /**
  * Controller for ErrorPages.
+ *
+ * @extends PageController<ErrorPage>
  */
 class ErrorPageController extends PageController
 {
@@ -30,7 +32,6 @@ class ErrorPageController extends PageController
      */
     public function handleRequest(HTTPRequest $request): HTTPResponse
     {
-        /** @var ErrorPage $page */
         $page = $this->data();
         $response = parent::handleRequest($request);
         $response->setStatusCode($page->ErrorCode);
