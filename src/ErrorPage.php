@@ -110,7 +110,6 @@ class ErrorPage extends Page
     public static function response_for($statusCode, $errorMessage = null)
     {
         // first attempt to dynamically generate the error page
-        /** @var ErrorPage $errorPage */
         $errorPage = ErrorPage::get()
             ->filter([
                 "ErrorCode" => $statusCode
@@ -185,7 +184,6 @@ class ErrorPage extends Page
     {
         $code = $defaultData['ErrorCode'];
 
-        /** @var ErrorPage $page */
         $page = ErrorPage::get()->find('ErrorCode', $code);
         if (!$page) {
             $page = static::create();

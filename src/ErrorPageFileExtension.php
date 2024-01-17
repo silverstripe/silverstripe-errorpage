@@ -2,15 +2,17 @@
 
 namespace SilverStripe\ErrorPage;
 
+use SilverStripe\Assets\Shortcodes\FileShortcodeProvider;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataObject;
 
 /**
  * Decorates {@see File} with ErrorPage support
+ *
+ * @extends DataExtension<FileShortcodeProvider>
  */
 class ErrorPageFileExtension extends DataExtension
 {
-
     /**
      * Used by {@see File::handle_shortcode}
      *

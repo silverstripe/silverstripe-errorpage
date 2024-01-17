@@ -9,13 +9,15 @@ use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse_Exception;
 use SilverStripe\Core\Extension;
+use SilverStripe\Forms\Form;
 
 /**
  * Enhances error handling for a controller with ErrorPage generated output
+ *
+ * @extends Extension<Controller|Form>
  */
 class ErrorPageControllerExtension extends Extension
 {
-
     /**
      * Used by {@see RequestHandler::httpError}
      *
