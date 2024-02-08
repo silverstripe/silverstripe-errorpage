@@ -9,7 +9,6 @@ ro:
     CODE_406: '406 - Neacceptată'
     CODE_407: '407 - Autentificare Proxy Necesară'
     CODE_408: '408 - Solicitare expirată'
-    CODE_409: '409 - Conflict'
     CODE_410: '410 - Dispărut'
     CODE_411: '411 - Lungime necesară'
     CODE_412: '412 - Precondiție eșuată '
