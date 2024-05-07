@@ -28,9 +28,9 @@ it:
     CODE_503: '503 - Servizio Non Disponibile'
     CODE_504: '504 - Gateway Scaduto'
     CODE_505: '505 - Versione HTTP Non Supportato'
-    DEFAULTERRORPAGECONTENT: '<p>Spiacente, sembra si stesse provando ad accedere ad una pagina inesistente.</p><p>Controllare che l''URL sia stato digitato correttamente e riprovare.</p>'
+    DEFAULTERRORPAGECONTENT: "<p>Spiacente, sembra si stesse provando ad accedere ad una pagina inesistente.</p><p>Controllare che l'URL sia stato digitato correttamente e riprovare.</p>"
     DEFAULTERRORPAGETITLE: 'Pagina non trovata'
-    DEFAULTSERVERERRORPAGECONTENT: '<p>Spiacente, c''è stato un problema nella gestione della richiesta.</p>'
+    DEFAULTSERVERERRORPAGECONTENT: "<p>Spiacente, c'è stato un problema nella gestione della richiesta.</p>"
     DEFAULTSERVERERRORPAGETITLE: 'Errore server'
     DESCRIPTION: 'Contenuto personalizzato per i differenti casi di errore (per esempio "Pagina non trovata")'
     PLURALNAME: 'Pagine di Errore'
