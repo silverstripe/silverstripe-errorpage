@@ -31,9 +31,9 @@ nl:
     DEFAULTSERVERERRORPAGECONTENT: '<p>Helaas, er was een probleem bij het verwerken van uw verzoek.</p>'
     DEFAULTSERVERERRORPAGETITLE: Serverfout
     DESCRIPTION: 'Aangepaste tekst voor verschillende foutmeldingen (bijv. "Pagina niet gevonden")'
-    PLURALNAME: 'Foutpagina''s'
+    PLURALNAME: "Foutpagina's"
     PLURALS:
       one: 'Een foutpagina'
-      other: '{count} foutpagina''s'
+      other: "{count} foutpagina's"
     SINGULARNAME: Foutpagina
     db_ErrorCode: Foutcode
