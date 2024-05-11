@@ -1,10 +1,10 @@
 ca:
   SilverStripe\ErrorPage\ErrorPage:
-    CODE: 'Codi d''error'
+    CODE: "Codi d'error"
     CODE_400: '400 - Mala petició'
     CODE_401: '401 - Sense autorització'
     CODE_403: '403 - Prohibit'
-    CODE_404: '404 - No s''ha trobat'
+    CODE_404: "404 - No s'ha trobat"
     CODE_405: '405 - Mètode no permès'
     CODE_406: '406 - No acceptable'
     CODE_407: '407 - Autenticació de servidor intermediari requerida'
