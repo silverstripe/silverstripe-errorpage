@@ -25,7 +25,7 @@ class ErrorPageControllerExtension extends Extension
      * @param HTTPRequest $request
      * @throws HTTPResponse_Exception
      */
-    public function onBeforeHTTPError($statusCode, $request, $errorMessage = null)
+    protected function onBeforeHTTPError($statusCode, $request, $errorMessage = null)
     {
         if (Director::is_ajax() || $this->isAdminController()) {
             return;

@@ -19,7 +19,7 @@ class ErrorPageFileExtension extends DataExtension
      * @param int $statusCode HTTP Error code
      * @return DataObject Substitute object suitable for handling the given error code
      */
-    public function getErrorRecordFor($statusCode)
+    protected function getErrorRecordFor($statusCode)
     {
         return ErrorPage::get()->filter("ErrorCode", $statusCode)->first();
     }
