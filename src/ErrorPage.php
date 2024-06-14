@@ -82,7 +82,7 @@ class ErrorPage extends Page
 
     /**
      * An array of error codes to allow in the CMS
-     * If null, defaults to all available codes (see self::getCodes())
+     * If null, defaults to all available codes (see ErrorPage::getCodes())
      */
     private static ?array $allowed_error_codes = null;
 
@@ -120,7 +120,7 @@ class ErrorPage extends Page
             Requirements::clear_combined_files();
 
             //set @var dev_append_error_message to false to opt out of dev message
-            $showDevMessage = (self::config()->dev_append_error_message === true);
+            $showDevMessage = (static::config()->dev_append_error_message === true);
 
             if ($errorMessage) {
                 // Dev environments will have the error message added regardless of template changes
@@ -140,7 +140,7 @@ class ErrorPage extends Page
         }
 
         // then fall back on a cached version
-        $content = self::get_content_for_errorcode($statusCode);
+        $content = ErrorPage::get_content_for_errorcode($statusCode);
         if ($content) {
             $response = new HTTPResponse();
             $response->setStatusCode($statusCode);
@@ -163,7 +163,7 @@ class ErrorPage extends Page
         parent::requireDefaultRecords();
 
         // Only run on ErrorPage class directly, not subclasses
-        if (static::class !== self::class || !SiteTree::config()->get('create_default_pages')) {
+        if (static::class !== ErrorPage::class || !SiteTree::config()->get('create_default_pages')) {
             return;
         }
 
@@ -197,7 +197,7 @@ class ErrorPage extends Page
         }
 
         // Check if static files are enabled
-        if (!self::config()->get('enable_static_file')) {
+        if (!static::config()->get('enable_static_file')) {
             return;
         }
 
@@ -297,14 +297,14 @@ class ErrorPage extends Page
      */
     protected function hasStaticPage()
     {
-        if (!self::config()->get('enable_static_file')) {
+        if (!static::config()->get('enable_static_file')) {
             return false;
         }
 
         // Attempt to retrieve content from generated file handler
         $filename = $this->getErrorFilename();
-        $storeFilename = File::join_paths(self::config()->get('store_filepath'), $filename);
-        $result = self::get_asset_handler()->getContent($storeFilename);
+        $storeFilename = File::join_paths(static::config()->get('store_filepath'), $filename);
+        $result = ErrorPage::get_asset_handler()->getContent($storeFilename);
         return !empty($result);
     }
 
@@ -315,7 +315,7 @@ class ErrorPage extends Page
      */
     public function writeStaticPage()
     {
-        if (!self::config()->get('enable_static_file')) {
+        if (!static::config()->get('enable_static_file')) {
             return false;
         }
 
@@ -342,10 +342,10 @@ class ErrorPage extends Page
         if ($errorContent) {
             // Store file content in the default store
             $storeFilename = File::join_paths(
-                self::config()->get('store_filepath'),
+                static::config()->get('store_filepath'),
                 $this->getErrorFilename()
             );
-            self::get_asset_handler()->setContent($storeFilename, $errorContent);
+            ErrorPage::get_asset_handler()->setContent($storeFilename, $errorContent);
 
             return true;
         } else {
@@ -373,17 +373,17 @@ class ErrorPage extends Page
      */
     public static function get_content_for_errorcode($statusCode)
     {
-        if (!self::config()->get('enable_static_file')) {
+        if (!static::config()->get('enable_static_file')) {
             return null;
         }
 
         // Attempt to retrieve content from generated file handler
-        $filename = self::get_error_filename($statusCode);
+        $filename = ErrorPage::get_error_filename($statusCode);
         $storeFilename = File::join_paths(
-            self::config()->get('store_filepath'),
+            static::config()->get('store_filepath'),
             $filename
         );
-        return self::get_asset_handler()->getContent($storeFilename);
+        return ErrorPage::get_asset_handler()->getContent($storeFilename);
     }
 
     protected function getCodes()
@@ -466,7 +466,7 @@ class ErrorPage extends Page
      */
     protected function getErrorFilename()
     {
-        return self::get_error_filename($this->ErrorCode, $this);
+        return ErrorPage::get_error_filename($this->ErrorCode, $this);
     }
 
     /**
