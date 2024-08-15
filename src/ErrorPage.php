@@ -48,6 +48,14 @@ class ErrorPage extends Page
         "ErrorCode" => 400
     ];
 
+    private static array $scaffold_cms_fields_settings = [
+        'ignoreFields' => [
+            // Scaffolded field is incorrect and poorly placed,
+            // so don't waste time scaffolding it
+            'ErrorCode',
+        ],
+    ];
+
     private static $table_name = 'ErrorPage';
 
     private static $allowed_children = [];
