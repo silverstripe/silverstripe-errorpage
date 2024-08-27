@@ -258,7 +258,7 @@ class ErrorPage extends Page
             ]
         ];
 
-        $this->extend('getDefaultRecords', $data);
+        $this->extend('updateDefaultRecords', $data);
 
         return $data;
     }
