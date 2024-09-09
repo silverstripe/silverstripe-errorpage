@@ -18,6 +18,7 @@ use SilverStripe\ORM\DB;
 use SilverStripe\ORM\ValidationException;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\View\SSViewer;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * @package    cms
@@ -223,8 +224,8 @@ class ErrorPageTest extends FunctionalTest
     /**
      * @param string $env
      * @param bool $shouldShowInDev
-     * @dataProvider provideErrorMessageEnv
      */
+    #[DataProvider('provideErrorMessageEnv')]
     public function testErrorMessageAppended($env, $shouldShowInDev)
     {
         /* @var Kernel $kernel */
@@ -247,7 +248,7 @@ class ErrorPageTest extends FunctionalTest
     /**
      * @return array
      */
-    public function provideErrorMessageEnv()
+    public static function provideErrorMessageEnv()
     {
         return [
             ['dev', true],
