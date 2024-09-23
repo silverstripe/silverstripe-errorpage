@@ -17,7 +17,7 @@ use SilverStripe\Dev\Debug;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DB;
-use SilverStripe\ORM\ValidationException;
+use SilverStripe\Core\Validation\ValidationException;
 use SilverStripe\Security\Member;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\SSViewer;
