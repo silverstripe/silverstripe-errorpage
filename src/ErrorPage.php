@@ -62,7 +62,7 @@ class ErrorPage extends Page
 
     private static $description = 'Custom content for different error cases (e.g. "Page not found")';
 
-    private static $icon_class = 'font-icon-p-error';
+    private static $cms_icon_class = 'font-icon-p-error';
 
     /**
      * Allow developers to opt out of dev messaging using Config
