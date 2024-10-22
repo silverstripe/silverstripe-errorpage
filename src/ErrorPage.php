@@ -322,6 +322,7 @@ class ErrorPage extends Page
         // Run the page (reset the theme, it might've been disabled by LeftAndMain::init())
         $originalThemes = SSViewer::get_themes();
         try {
+            $this->extend('onBeforeStaticWrite');
             // Restore front-end themes from config
             $themes = SSViewer::config()->get('themes') ?: $originalThemes;
             SSViewer::set_themes($themes);
@@ -336,6 +337,7 @@ class ErrorPage extends Page
         } finally {
             // Restore themes
             SSViewer::set_themes($originalThemes);
+            $this->extend('onAfterStaticWrite');
         }
 
         // Make sure we have content to save
