@@ -133,7 +133,7 @@ class ErrorPage extends Page
                 $errorPage->ResponseErrorMessage = DBField::create_field('Varchar', $errorMessage);
             }
 
-            $request = new HTTPRequest('GET', '');
+            $request = new HTTPRequest();
             $request->setSession(Controller::curr()->getRequest()->getSession());
             return ModelAsController::controller_for($errorPage)
                 ->handleRequest($request);
