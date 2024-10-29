@@ -16,7 +16,7 @@ use SilverStripe\Dev\FunctionalTest;
 use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\ORM\DB;
 use SilverStripe\Core\Validation\ValidationException;
-use SilverStripe\Versioned\Versioned;
+use SilverStripe\Versioned\Mode\Versioned;
 use SilverStripe\View\SSViewer;
 use PHPUnit\Framework\Attributes\DataProvider;
 

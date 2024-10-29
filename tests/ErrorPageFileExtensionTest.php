@@ -10,7 +10,7 @@ use SilverStripe\Dev\SapphireTest;
 use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\Security\InheritedPermissions;
 use SilverStripe\Security\Security;
-use SilverStripe\Versioned\Versioned;
+use SilverStripe\Versioned\Mode\Versioned;
 use SilverStripe\View\Parsers\ShortcodeParser;
 
 class ErrorPageFileExtensionTest extends SapphireTest
