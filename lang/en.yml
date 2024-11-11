@@ -1,5 +1,6 @@
 en:
   SilverStripe\ErrorPage\ErrorPage:
+    CLASS_DESCRIPTION: 'Custom content for different error cases (e.g. "Page not found")'
     CODE: 'Error code'
     CODE_400: '400 - Bad Request'
     CODE_401: '401 - Unauthorized'
