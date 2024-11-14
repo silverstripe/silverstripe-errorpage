@@ -52,7 +52,12 @@ class ErrorPage extends Page
 
     private static $allowed_children = [];
 
+    /**
+     * @deprecated 5.4.0 use class_description instead.
+     */
     private static $description = 'Custom content for different error cases (e.g. "Page not found")';
+
+    private static $class_description = 'Custom content for different error cases (e.g. "Page not found")';
 
     private static $icon_class = 'font-icon-p-error';
 
