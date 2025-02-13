@@ -1,5 +1,6 @@
 da:
   SilverStripe\ErrorPage\ErrorPage:
+    CLASS_DESCRIPTION: 'Tilpasset indhold for diverse fejl scenarier (f.eks. "Siden blev ikke fundet")'
     CODE: 'Fejl kode'
     CODE_404: '404 - Siden blev ikke fundet'
     CODE_500: '500 - Intern server fejl'

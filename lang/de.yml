@@ -1,5 +1,6 @@
 de:
   SilverStripe\ErrorPage\ErrorPage:
+    CLASS_DESCRIPTION: 'Spezieller Inhalt für andere Fehlerfälle (z.B. "Seite nicht gefunden")'
     CODE: Fehlercode
     CODE_400: '400 - Ungültige Anforderung'
     CODE_401: '401 - Nicht autorisiert'
