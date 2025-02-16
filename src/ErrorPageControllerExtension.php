@@ -38,7 +38,6 @@ class ErrorPageControllerExtension extends Extension
 
     private function isAdminController(): bool
     {
-        return ($this->owner instanceof LeftAndMain)
-            || Controller::has_curr() && (Controller::curr() instanceof LeftAndMain);
+        return ($this->owner instanceof LeftAndMain) || (Controller::curr() instanceof LeftAndMain);
     }
 }
