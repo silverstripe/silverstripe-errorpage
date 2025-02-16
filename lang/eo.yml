@@ -1,5 +1,6 @@
 eo:
   SilverStripe\ErrorPage\ErrorPage:
+    CLASS_DESCRIPTION: 'Propra enhavo por diversaj prieraraj okazoj (ekz-e "Ne trovis la paĝon")'
     CODE: Erarkodo
     CODE_400: '400 - Malbona peto'
     CODE_401: '401 - Nerajtigita'

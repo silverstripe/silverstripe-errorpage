@@ -1,5 +1,6 @@
 fi:
   SilverStripe\ErrorPage\ErrorPage:
+    CLASS_DESCRIPTION: 'Oma sisältö eri virhetilanteita varten (esim. "Sivua ei löytynyt")'
     CODE: Virhekoodi
     CODE_401: '401 - Ei oikeuksia'
     CODE_403: '403 - Kielletty'

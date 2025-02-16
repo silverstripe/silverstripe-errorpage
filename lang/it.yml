@@ -1,5 +1,6 @@
 it:
   SilverStripe\ErrorPage\ErrorPage:
+    CLASS_DESCRIPTION: 'Contenuto personalizzato per i differenti casi di errore (per esempio "Pagina non trovata")'
     CODE: 'Codice di errore'
     CODE_400: '400 - Richiesta Errata'
     CODE_401: '401 - Non Autorizzato'
@@ -19,8 +20,16 @@ it:
     CODE_415: '415 - Tipo Media Non Supportato'
     CODE_416: '416 - Intervallo Richiesta Non Soddisfabile'
     CODE_417: '417 - Aspettativa Disattesa'
+    CODE_418: '418 - Sono una teiera'
+    CODE_421: '421 - Richiesta Mal Direzionata'
     CODE_422: '422 - Entità Non Processabile'
+    CODE_423: '423 - Bloccato'
+    CODE_424: '424 - Dipendenza Fallita'
+    CODE_425: '425 - Troppo Presto'
+    CODE_426: '426 - Aggiornamento Richiesto'
+    CODE_428: '428 - Precondizione Richiesta'
     CODE_429: '429 - Troppe Richieste'
+    CODE_431: '431 - Richiesta con Campi Header Troppo Lunghi'
     CODE_451: '451 - Non Disponibile Per Ragioni Legali'
     CODE_500: '500 - Errore Interno al Server'
     CODE_501: '501 - Non Implementato'
@@ -28,6 +37,11 @@ it:
     CODE_503: '503 - Servizio Non Disponibile'
     CODE_504: '504 - Gateway Scaduto'
     CODE_505: '505 - Versione HTTP Non Supportato'
+    CODE_506: '506 - Anche la Variante Negozia'
+    CODE_507: '507 - Spazio Disco Insufficiente'
+    CODE_508: '508 - Ciclo Rilevato'
+    CODE_510: '510 - Non Esteso'
+    CODE_511: '511 - Autenticazione di Rete Richiesta'
     DEFAULTERRORPAGECONTENT: "<p>Spiacente, sembra si stesse provando ad accedere ad una pagina inesistente.</p><p>Controllare che l'URL sia stato digitato correttamente e riprovare.</p>"
     DEFAULTERRORPAGETITLE: 'Pagina non trovata'
     DEFAULTSERVERERRORPAGECONTENT: "<p>Spiacente, c'è stato un problema nella gestione della richiesta.</p>"
