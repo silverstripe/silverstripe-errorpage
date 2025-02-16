@@ -1,5 +1,6 @@
 nl:
   SilverStripe\ErrorPage\ErrorPage:
+    CLASS_DESCRIPTION: 'Aangepaste tekst voor verschillende foutmeldingen (bijv. "Pagina niet gevonden")'
     CODE: Foutcode
     CODE_400: '400 - Foute aanvraag'
     CODE_401: '401 - Niet geautorizeerd'

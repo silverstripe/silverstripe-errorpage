@@ -1,5 +1,6 @@
 hr:
   SilverStripe\ErrorPage\ErrorPage:
+    CLASS_DESCRIPTION: 'Prilagođeni sadržaj za različite slučajeve pogrešaka (npr., "Stranica nije pronađena")'
     CODE: 'Kod greške'
     DEFAULTERRORPAGECONTENT: '<p>Nažalost, čini se kako pokušavate pristupiti stranici koja ne postoji</p>Molimo provjerite da li ste ispravno napisali link kojem želite pristupiti i pokušajte ponovo.<p>'
     DEFAULTERRORPAGETITLE: 'Stranica nije pronađena'

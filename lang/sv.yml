@@ -1,5 +1,6 @@
 sv:
   SilverStripe\ErrorPage\ErrorPage:
+    CLASS_DESCRIPTION: 'Anpassat innehåll för olika fel (t. ex "Sidan hittades inte")'
     CODE: Felkod
     CODE_400: '400 - Ogiltig begäran'
     CODE_401: '401 - Ej auktoriserad'

@@ -1,5 +1,6 @@
 sk:
   SilverStripe\ErrorPage\ErrorPage:
+    CLASS_DESCRIPTION: 'Vlastný obsah pre rôzne druhy chýb (napr. "Stránka sa nenašla")'
     CODE: 'Kód chyby'
     DEFAULTERRORPAGECONTENT: '<p>Ľutujeme, zdá sa, že ste sa pokúšali o prístup na stránku, ktorá neexistuje.</p><p>Skontrolujte adresu URL, ku ktorej ste sa pokúšali dostať, a skúste to znova.</p>'
     DEFAULTERRORPAGETITLE: 'Stránka nenájdená'
