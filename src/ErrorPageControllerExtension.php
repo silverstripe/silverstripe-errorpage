@@ -2,7 +2,7 @@
 
 namespace SilverStripe\ErrorPage;
 
-use SilverStripe\Admin\LeftAndMain;
+use SilverStripe\Admin\AdminController;
 use SilverStripe\Control\Controller;
 use SilverStripe\ErrorPage\ErrorPage;
 use SilverStripe\Control\Director;
@@ -38,6 +38,6 @@ class ErrorPageControllerExtension extends Extension
 
     private function isAdminController(): bool
     {
-        return ($this->owner instanceof LeftAndMain) || (Controller::curr() instanceof LeftAndMain);
+        return ($this->owner instanceof AdminController) || (Controller::curr() instanceof AdminController);
     }
 }
